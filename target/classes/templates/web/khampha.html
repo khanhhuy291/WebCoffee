@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/resetcss.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/khampha.css}">
+    <link rel="icon" th:href="@{/image/Anh1.png}">
+    <title>DND COFFEE</title>
+</head>
+<body>
+<div id="header">
+
+
+    <nav class="container">
+
+        <a th:href="@{/index}" id="logo">
+            <img th:src="@{/image/Anh1.png}" alt="DND COFFEE">
+        </a>
+
+        <ul id="main-menu">
+            <li><a th:href="@{/khampha}">KHÁM PHÁ</a>
+                <ul class="sub-menu">
+                    <li><a th:href="@{/khampha}">MENU ĐẶC BIỆT</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/dongcaphedacbiet}">CÀ PHÊ ĐẶC BIỆT</a></li>
+                            <li><a th:href="@{/tinhhoatra}">TINH HOA TRÀ DND</a></li>
+                            <li><a th:href="@{/menunguyenban}">MENU NGUYÊN BẢN</a></li>
+                            <li><a th:href="@{/thucdonmonan}">THỰC ĐƠN MÓN ĂN</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">BẢN ĐỒ QUÁN</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/quancaphe}">QUÁN CÀ PHÊ</a></li>
+            <li><a th:href="@{/thucdon}">THỰC ĐƠN</a>
+                <ul class="sub-menu">
+                    <li><a th:href="@{/caphe}">CÀ PHÊ</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/caphephin}">Cà Phê Phin</a></li>
+                            <li><a th:href="@{/phindi}">PhinDi</a></li>
+                            <li><a th:href="@{/caphekhac}">Khác</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/web/freeze}">FREEZE</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/freezetraxanh}">Freeze Trà Xanh</a></li>
+                            <li><a th:href="@{/freezecookies}">Freeze Cookies & Cream</a></li>
+                            <li><a th:href="@{/freezesocola}">Freeze Sô-cô-la</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/tra}">TRÀ</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/trasenvang}">Trà Sen Vàng Mới</a></li>
+                            <li><a th:href="@{/trathachdao}">Trà Thạch Đào</a></li>
+                            <li><a th:href="@{/trathanhdao}">Trà Thanh Đào</a></li>
+                            <li><a th:href="@{/trathanhvai}">Trà Thanh Vải</a></li>
+                            <li><a th:href="@{/traoihong}">Trà Ổi Hồng</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/khac}">KHÁC</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/banhngot}">Bánh ngọt</a></li>
+                            <li><a th:href="@{/merchandise}">Merchandise</a></li>
+                            <li><a th:href="@{/caphedonggoi}">Cà phê đóng gói</a></li>
+                            <li><a th:href="@{/thucdongiaohang}">Thực đơn giao hàng</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a th:href="@{/tintuc}">TIN TỨC</a></li>
+            <li><a th:href="@{/vechungtoi}">VỀ CHÚNG TÔI</a>
+                <ul class="sub-menu">
+                    <li><a th:href="@{/nguongoc}">NGUỒN GỐC</a></li>
+                    <li><a th:href="@{/dichvu}">DỊCH VỤ</a></li>
+                    <li><a th:href="@{/nghenghiep}">NGHỀ NGHIỆP</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/datdouong}">MUA NGAY</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<section class="specialty-section">
+    <div class="specialty-content">
+        <a href="#"><h2 class="specialty-title">DÒNG CÀ PHÊ ĐẶC BIỆT</h2></a>
+        <h3 class="specialty-subtitle">(SPECIALTY COFFEE)</h3>
+        <p class="specialty-description">
+            Với sự hội tụ giữa các hạt cà phê ngon nhất của Việt Nam và Thế
+            Giới, cùng kết các phương pháp pha cà phê truyền thống và hiện
+            đại.DND COFFEE đem lại các trải nghiệm độc
+            đáo và mới lạ <span class="specialty-highlight">"CHỈ RIÊNG TẠI ĐÂY"</span>.
+        </p>
+        <a th:href="@{/dongcaphedacbiet}" class="btn-explore">KHÁM PHÁ THÊM</a>
+    </div>
+    <div class="background-blob"></div>
+    <img th:src="@{/image/Anh4.png}" alt="DND Coffee Specialty Drink" class="specialty-image">
+</section>
+
+<section class="specialty-section2">
+    <div class="specialty-content2">
+        <a href="#"><h2 class="specialty-title2">TINH HOA TRÀ DND</h2></a>
+        <h3 class="specialty-subtitle2">(SPECIALTY TEA)</h3>
+        <p class="specialty-description2">
+            Với việc kết hợp hương vị hiện đại và thảo mộc tinh tế,
+            mang đến cho bạn hành trình trải nghiệm văn hóa Trà độc đáo,
+            duy nhất tại DND COFFEE.
+        </p>
+        <a th:href="@{/tinhhoatra}" class="btn-explore2">KHÁM PHÁ THÊM</a>
+    </div>
+    <div class="background-blob2"></div>
+    <img th:src="@{/image/Anh5 - Copy.png}" alt="DND Coffee Specialty Drink" class="specialty-image2">
+</section>
+
+<section class="specialty-section">
+    <div class="specialty-content">
+        <a href="#"><h2 class="specialty-title">MENU NGUYÊN BẢN</h2></a>
+        <h3 class="specialty-subtitle">(STANDARD MENU)</h3>
+        <p class="specialty-description">
+            Các sản phẩm đại diện của Chúng Mình mang đến hương vị tinh tế của văn hóa Việt Nam,
+            gồm Phin Cà Phê Truyền Thống Coffee đậm đà, Trà Sen Vàng độc đáo, Freeze Trà Xanh tuyệt vời và Phindi Hạnh Nhân ngon khó cưỡng.
+            Mỗi sản phẩm tại DND Coffee là một câu chuyện,
+            mời gọi bạn khám phá hương vị Việt qua từng ngụm, nơi giao thoa giữa Hiện Đại và Truyền Thống.
+        </p>
+        <a th:href="@{/menunguyenban}" class="btn-explore">KHÁM PHÁ THÊM</a>
+    </div>
+    <div class="background-blob"></div>
+    <img th:src="@{/image/Anh6.png}" alt="DND Coffee Specialty Drink" class="specialty-image">
+</section>
+
+<section class="specialty-section2">
+    <div class="specialty-content2">
+        <a href="#"><h2 class="specialty-title2">THỰC ĐƠN MÓN ĂN</h2></a>
+        <h3 class="specialty-subtitle2">(FOOD MENU)</h3>
+        <p class="specialty-description2">
+            Khám phá Thực Đơn phong phú, các loại Bánh Mặn/Ngọt (mới)
+            tại DND COFFEE được làm riêng tại nơi đây.
+        </p>
+        <a th:href="@{/thucdonmonan}" class="btn-explore2">KHÁM PHÁ THÊM</a>
+    </div>
+    <div class="background-blob2"></div>
+    <img th:src="@{/image/Anh7.png}" alt="DND Coffee Specialty Drink" class="specialty-image2">
+</section>
+
+<div id="foot">
+    <footer class="dnd-footer">
+        <div class="footer-container">
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">© 2018 DND Coffee. All rights reserved</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link"><i class="fas fa-envelope"></i> Đăng ký nhận bản tin</a>
+                <a href="mailto:nguyenduonghb940@gmail.com" class="footer-link"><i class="fas fa-envelope"></i> nguyenduonghb940@gmail.com</a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script th:src="@{https://code.jquery.com/jquery-3.7.1.js}"></script>
+<script th:inline="javascript">
+    $(document).ready(function(){
+        $('.sub-menu').parent('li').addClass('has-child');
+    });
+</script>
+</body>
+</html>

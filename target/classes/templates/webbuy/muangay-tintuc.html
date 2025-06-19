@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel = "stylesheet" href = "../css/resetcss.css">
+    <link rel = "stylesheet" href = "../css/muangay.css">
+    <link rel = "stylesheet" href = "../css/flashdeal.css">
+    <link rel = "icon" href="../image/Anh1.png">
+    <title>DND COFFEE</title>
+
+    <style>
+        .muangaytintuccontainer {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Section */
+        .muangaytintucheader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        
+        /* News Sections */
+        .muangaytintucnews-section {
+            margin: 30px 0;
+        }
+        
+        .muangaytintucsection-title {
+            font-size: 24px;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        /* Featured News */
+        .muangaytintucfeatured-news {
+            margin-bottom: 40px;
+        }
+        
+        .muangaytintucfeatured-item {
+            display: flex;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .muangaytintucfeatured-image {
+            width: 100px;
+            height: 80px;
+            object-fit: cover;
+        }
+        
+        .muangaytintucfeatured-content {
+            padding: 10px 15px;
+        }
+        
+        .muangaytintucfeatured-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        /* Main News */
+        .muangaytintucmain-news {
+            margin-top: 40px;
+        }
+        
+        .muangaytintucmain-article {
+            margin-bottom: 40px;
+        }
+        
+        .muangaytintucmain-image {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .muangaytintucdate {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .muangaytintucarticle-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .muangaytintucarticle-content {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        
+        .muangaytintucread-more {
+            display: inline-block;
+            margin-top: 10px;
+            color: #7B3F00;
+            text-decoration: none;
+            border-bottom: 1px solid #7B3F00;
+        }
+        
+        .muangaytintucread-more:hover {
+            color: #593000;
+        }
+        .muangaytintucmain {
+            display: flex; /* Sắp xếp các phần tử con theo chiều ngang */
+            justify-content: space-between; /* Căn cách đều hai phần */
+            gap: 20px; /* Khoảng cách giữa hai section */
+        }
+        
+        .muangaytintucnews-section {
+            flex: 1; /* Mỗi section chiếm phần bằng nhau */
+            background-color: #fff; /* Nền trắng để dễ nhìn */
+            padding: 20px;
+            border-radius: 8px; /* Bo góc nhẹ */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Đổ bóng */
+        }
+        
+        .muangaytintucfeatured-news {
+            max-width: 40%; /* Chiếm 40% chiều rộng */
+        }
+        
+        .main-news {
+            max-width: 60%; /* Chiếm 60% chiều rộng */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        GIAO HÀNG TOÀN QUỐC
+    </div>
+    
+    <div class="header">
+        <div class="menu-button" id="menu-toggle">
+            <div class="menu-icon">☰</div>
+            <div class="menu-text">MENU</div>
+        </div>
+        <a href = "../index.html">
+        <img src="../image/Anh1.png" alt="DND Coffee" class="logo">
+        </a>
+        <div class="search-bar">
+            <div class="search-form">
+                <input type="text" class="search-input" placeholder="Tìm sản phẩm...">
+                <button class="search-button">
+                    <span class="search-icon">⌕</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="user-actions">
+            <div class="account">
+                <div class="user-icon">👤</div>
+                <div>Tài khoản</div>
+            </div>
+            
+            <div class="cart">
+                <div class="cart-icon">🛒</div>
+                <div class="cart-count">0</div>
+                <div>Giỏ hàng</div>
+            </div>
+        </div>
+        <nav class="sidebar" id="sidebar">
+            <div class="close-btn" id="close-menu">✖</div>
+            <ul class="menu">
+
+                <li class="has-submenu">
+                    <a href="#">TRANG CHỦ</a>
+                    <ul class="submenu">
+                        <li><a href="../webbuy/muangay.html">Trang chủ</a></li>
+                        <li><a href="#">FLASH DEAL</a></li>
+                        <li><a href="#">TẾT 2025</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#">FLASH DEAL</a>
+                    <ul class="submenu">
+                        <li><a href="#">FLASH DEAL</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">MUA SỈ</a></li>
+                <li class="has-submenu">
+                    <a href="#">GIỚI THIỆU</a>
+                    <ul class="submenu">
+                        <li><a href="#">Cà Phê Rang Xay</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Giới thiệu Sản phẩm DND Coffee®</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">TIN TỨC</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    
+
+    <div class="nav-bar">
+        <a href="#" class="nav-item home-icon">🏠</a>
+        <a href="../webbuy/muangay.html" class="nav-item">TRANG CHỦ</a>
+        <a href="#" class="nav-item">FLASH DEAL</a>
+        <a href="#" class="nav-item">MUA SỈ</a>
+        <a href="#" class="nav-item">GIỚI THIỆU</a>
+        <a href="#" class="nav-item active">TIN TỨC</a>
+    </div>
+    
+    <div class="category-bar">
+        <a href="#" class="category-item">Cà Phê Rang Xay</a>
+        <a href="#" class="category-item">Cà Phê Hạt</a>
+        <a href="#" class="category-item">Cà Phê Uống Liền</a>
+        <a href="#" class="category-item">Cà Phê Hòa Tan</a>
+    </div>
+    
+    <div class="breadcrumb">
+        <a href="#">Trang chủ</a>
+        <span class="separator">/</span>
+        <span class="active">TIN TỨC</span>
+    </div>
+    
+    <div class="muangaytintuccontainer">
+        <div class = "muangaytintucmain">
+            <section class="muangaytintucnews-section muangaytintucfeatured-news">
+                <h2 class="muangaytintucsection-title">TIN NỔI BẬT</h2>
+                
+                <div class="muangaytintucfeatured-item">
+                    <img src="../image/NenNgang1.png" alt="Cà phê truyền thống" class="muangaytintucfeatured-image">
+                    <div class="muangaytintucfeatured-content">
+                        <h3 class="muangaytintucfeatured-title">HÀNH TRÌNH TỪ CAO NGUYÊN ĐẾN LY CÀ PHÊ TRUYỀN THỐNG</h3>
+                    </div>
+                </div>
+                
+                <div class="muangaytintucfeatured-item">
+                    <img src="../image/NenNgang1.png" alt="Đăng ký thành viên" class="muangaytintucfeatured-image">
+                    <div class="muangaytintucfeatured-content">
+                        <h3 class="muangaytintucfeatured-title">ĐĂNG KÝ THÀNH VIÊN</h3>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="muangaytintucnews-section main-news">
+                <h2 class="muangaytintucsection-title">TIN TỨC</h2>
+                
+                <article class="muangaytintucmain-article">
+                    <img src="../image/NenNgang1.png" alt="DND Coffee" class="muangaytintucmain-image">
+                    <div class="muangaytintucdate">Tuesday, February, 2025 - DND Coffee</div>
+                    <h2 class="muangaytintucarticle-title">HÀNH TRÌNH TỪ CAO NGUYÊN ĐẾN LY CÀ PHÊ TRUYỀN THỐNG</h2>
+                    <div class="muangaytintucarticle-content">
+                        <p>Bạn đã bao giờ tự hỏi ly cà phê thơm lừng mỗi sáng đến từ đâu? Với DND Coffee, đó không chỉ là một thức uống – đó là cả một hành trình từ những cao nguyên Việt Nam trù phú đến bàn tay bạn. Khởi nguồn từ Cao Nguyên đất đỏ Anh sưu tầm! DND Coffee tự hào mang đến tinh hoa từ những hạt tuyển chọn trên vùng Cao Nguyên bazan đỏ rực. Được ...</p>
+                    </div>
+                    <a href="#" class="muangaytintucread-more">Xem thêm</a>
+                </article>
+
+
+                <article class="muangaytintucmain-article">
+                    <img src="../image/NenNgang1.png" alt="DND Coffee" class="muangaytintucmain-image">
+                    <div class="muangaytintucdate">Tuesday, February, 2025 - DND Coffee</div>
+                    <h2 class="muangaytintucarticle-title">HÀNH TRÌNH TỪ CAO NGUYÊN ĐẾN LY CÀ PHÊ TRUYỀN THỐNG</h2>
+                    <div class="muangaytintucarticle-content">
+                        <p>Bạn đã bao giờ tự hỏi ly cà phê thơm lừng mỗi sáng đến từ đâu? Với DND Coffee, đó không chỉ là một thức uống – đó là cả một hành trình từ những cao nguyên Việt Nam trù phú đến bàn tay bạn. Khởi nguồn từ Cao Nguyên đất đỏ Anh sưu tầm! DND Coffee tự hào mang đến tinh hoa từ những hạt tuyển chọn trên vùng Cao Nguyên bazan đỏ rực. Được ...</p>
+                    </div>
+                    <a href="#" class="muangaytintucread-more">Xem thêm</a>
+                </article>
+            </section>
+            
+        </div>
+    </div>
+   
+      
+
+<!-- Footer Section -->
+<footer class="footer-container">
+    <div class="footer-content">
+      <!-- Company Info -->
+      <div class="footer-column company-info">
+        <h3 class="footer-heading">CÔNG TY TNHH MTV THÁI KIÊN</h3>
+        <p class="company-description">
+          Công ty phân phối hợp lệ sản phẩm cà phê thương hiệu DND Coffee®.
+        </p>
+        <div class="certification">
+          <img src="certification-badge.png" alt="Bộ Công Thương certification" class="certification-image">
+        </div>
+      </div>
+  
+      <!-- Contact Info -->
+      <div class="footer-column contact-info">
+        <h3 class="footer-heading">THÔNG TIN</h3>
+        <p class="address">
+          Trụ sở văn phòng: 127 Nguyễn Cơ Thạch, An Lợi Đông, Q.2, Tp. Hồ Chí Minh
+        </p>
+        <p class="phone">Điện thoại: 0917561212</p>
+        <p class="email">Email: cpg.customerservice@vtijs.com</p>
+      </div>
+  
+      <!-- Customer Support -->
+      <div class="footer-column customer-support">
+        <h3 class="footer-heading">HỖ TRỢ KHÁCH HÀNG</h3>
+        <ul class="support-links">
+          <li><a href="#">• Tìm kiếm</a></li>
+          <li><a href="#">• Chính sách đổi trả</a></li>
+          <li><a href="#">• Chính sách bảo mật</a></li>
+          <li><a href="#">• Chính sách giao hàng</a></li>
+          <li><a href="#">• Liên hệ</a></li>
+        </ul>
+      </div>
+  
+      <!-- Customer Care -->
+      <div class="footer-column customer-care">
+        <h3 class="footer-heading">CHĂM SÓC KHÁCH HÀNG</h3>
+        <div class="phone-contact">
+          <div class="phone-icon-container">
+            <span class="phone-icon">📞</span>
+          </div>
+          <div class="contact-numbers">
+            <p class="bagged-coffee">Cà phê đóng gói: 091.756.1212</p>
+            <p class="cafe-service">Cà phê tại quán: 1900.1755</p>
+            <p class="email-contact">cpg.customerservice@vtijs.com</p>
+          </div>
+        </div>
+        
+        <div class="social-media">
+          <h4 class="social-heading">FOLLOW US</h4>
+          <div class="social-icons">
+            <a href="#" class="social-link"><span class="social-icon">facebook</span></a>
+            <a href="#" class="social-link"><span class="social-icon">twitter</span></a>
+            <a href="#" class="social-link"><span class="social-icon">youtube</span></a>
+            <a href="#" class="social-link"><span class="social-icon">instagram</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menu-toggle");
+        const sidebar = document.getElementById("sidebar");
+        const closeMenu = document.getElementById("close-menu");
+    
+        menuToggle.addEventListener("click", function () {
+            sidebar.classList.add("active");
+        });
+    
+        closeMenu.addEventListener("click", function () {
+            sidebar.classList.remove("active");
+        });
+    
+        document.querySelectorAll(".has-submenu > a").forEach(item => {
+            item.addEventListener("click", function (e) {
+                e.preventDefault();
+                this.parentElement.classList.toggle("active");
+            });
+        });
+    });
+    
+  </script>
+
+
+</body>
+
+</html>

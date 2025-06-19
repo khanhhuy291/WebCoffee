@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Các thẻ meta khác -->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/resetcss.css}">
+    <link rel="stylesheet" th:href="@{/css/datdouong.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/chitietsanpham.css}">
+    <link rel="icon" th:href="@{/image/Anh1.png}">
+    <title>DND COFFEE</title>
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+</head>
+<body>
+<div class="top-bar">
+    GIAO HÀNG TOÀN QUỐC
+</div>
+
+<div class="header">
+    <div class="menu-button" id="menu-toggle">
+        <div class="menu-icon">☰</div>
+        <div class="menu-text">MENU</div>
+    </div>
+    <a th:href = "@{/datdouong}">
+        <img th:src="@{/image/Anh1.png}" alt="DND Coffee" class="logo">
+    </a>
+    <div class="search-bar">
+        <div class="search-form">
+            <input type="text" class="search-input" placeholder="Tìm sản phẩm...">
+            <button class="search-button">
+                <span class="search-icon">⌕</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="user-actions">
+        <a th:if="${tenNguoiDung == null}" th:href="@{/login}" style="text-decoration: none;">
+            <div class="account">
+                <div class="user-icon">👤</div>
+                <div>Tài khoản</div>
+            </div>
+        </a>
+
+        <div th:if="${tenNguoiDung != null}" class="dropdown">
+            <div class="account">
+                <div class="user-icon">👤</div>
+                <div th:text="${tenNguoiDung}">Tên người dùng</div>
+            </div>
+            <div class="dropdown-content">
+                <a th:href="@{/ho-so}">Hồ sơ cá nhân</a>
+                <a th:href="@{/don-mua}">Đơn mua</a>
+                <a th:href="@{/logout}">Đăng xuất</a>
+            </div>
+        </div>
+
+        <div class="cart" id = "menu-cart">
+            <div class="cart-icon">🛒</div>
+            <div class="cart-count">0</div>
+            <div>Giỏ hàng</div>
+        </div>
+    </div>
+    <nav class="sidebar" id="sidebar">
+        <div class="close-btn" id="close-menu">✖</div>
+        <ul class="menu">
+
+            <li class="has-submenu">
+                <a href="#">TRANG CHỦ</a>
+                <ul class="submenu">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="../webbuy/xemtatca.html">FLASH DEAL</a></li>
+                    <li><a href="#">TẾT 2025</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="../webbuy/xemtatca.html">FLASH DEAL</a>
+                <ul class="submenu">
+                    <li><a href="../webbuy/xemtatca.html">FLASH DEAL</a></li>
+                </ul>
+            </li>
+            <li><a href="#">MUA SỈ</a></li>
+            <li class="has-submenu">
+                <a href="#">GIỚI THIỆU</a>
+                <ul class="submenu">
+                    <li><a href="#">Cà Phê Rang Xay</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Giới thiệu Sản phẩm DND Coffee®</a></li>
+                </ul>
+            </li>
+            <li><a href="#">TIN TỨC</a></li>
+        </ul>
+    </nav>
+
+    <nav class="cartbar" id="cartbar">
+        <div class="close-btn" id="close-cart">✖</div>
+        <div class="cart-header">
+            GIỎ HÀNG
+        </div>
+        <div class="cart-items" id="cart-items">
+            <div class="empty-cart" id="empty-cart">
+                Giỏ hàng của bạn đang trống
+            </div>
+            <!-- Các mục giỏ hàng sẽ được thêm vào đây bằng JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div>Tổng tiền:</div>
+                <div class="cart-total-price" id="cart-total-price">0đ</div>
+            </div>
+            <a th:href="@{/thanhtoan}">
+                <button class="checkout-btn" id="checkout-btn" disabled>Thanh toán</button>
+            </a>
+        </div>
+    </nav>
+</div>
+
+
+
+<div class="nav-bar">
+    <a href="#" class="nav-item home-icon">🏠</a>
+    <a href="#" class="nav-item active">TRANG CHỦ</a>
+    <a href="#" class="nav-item">FLASH DEAL</a>
+    <a href="#" class="nav-item">MUA SỈ</a>
+    <a href="#" class="nav-item">GIỚI THIỆU</a>
+    <a href="#" class="nav-item">TIN TỨC</a>
+</div>
+
+<div class="category-bar">
+    <a href="#" class="category-item">Cà Phê Rang Xay</a>
+    <a href="#" class="category-item">Cà Phê Hạt</a>
+    <a href="#" class="category-item">Cà Phê Uống Liền</a>
+    <a href="#" class="category-item">Cà Phê Hòa Tan</a>
+</div>
+
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="#">Trang chủ</a>
+        <a href="#"  th:text="${mon.loaiMon}">FLASH DEAL</a>
+        <p   th:text="${mon.tenMon}">DEAL TRI ÂN - MUA 1 TẶNG 1 - Cà phê Bột Truyền Thống 1kg Tặng 1 gói 200g</p>
+    </div>
+
+    <div class="product-container">
+        <div class="product-images">
+            <div class="main-image">
+                <img th:src="@{${mon.path}}" th:alt="${mon.tenMon}">
+            </div>
+        </div>
+
+        <div class="product-info">
+            <h1 class="product-title" th:text="${mon.tenMon}">DEAL TRI ÂN - MUA 1 TẶNG 1 - Cà phê Bột Truyền Thống 1kg Tặng 1 gói 200g</h1>
+
+            <div class="product-meta">
+                <div class="product-brand">Thương hiệu: DND Coffee</div>
+                <div class="product-sku"  th:text="|Mã sản phẩm: ${mon.idMon}|">Mã sản phẩm: PVN25</div>
+            </div>
+
+            <div class="size-selector" th:if="${mon.giaMonSizeResponses != null and !mon.giaMonSizeResponses.isEmpty()}">
+                <span class="size-selector-label">Size :</span>
+                <div class="size-options">
+                    <div class="size-option"
+                         th:each="size, iterStat : ${mon.giaMonSizeResponses}"
+                         th:classappend="${iterStat.index == 0} ? 'selected' : ''"
+                         th:data-id="${size.idSize}"
+                         th:data-price="${size.giaBan}"
+                         th:text="${size.tenSize}">
+                        Size
+                    </div>
+                </div>
+            </div>
+
+            <div class="quantity-selector">
+                <div class="quantity-btn decrease">-</div>
+                <input type="number" min="1" class="quantity-input" value="10">
+                <div class="quantity-btn increase">+</div>
+            </div>
+
+            <button class="add-to-cart">Thêm vào giỏ</button>
+
+            <button class="add-to-wishlist">
+                <span class="heart-icon">♡</span>
+                Thêm vào yêu thích
+            </button>
+
+            <div class="product-sections">
+                <div class="section">
+                    <div class="section-header">
+                        <h3>MÔ TẢ SẢN PHẨM</h3>
+                        <span class="dropdown-icon">▼</span>
+                    </div>
+                    <div class="section-content"  th:text="${mon.moTa}">
+                        Thông tin chi tiết về sản phẩm cà phê DND Coffee
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>GIAO HÀNG TOÀN QUỐC</h3>
+                        <span class="dropdown-icon">▼</span>
+                    </div>
+                    <div class="section-content">
+                        Thông tin về chính sách giao hàng
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>HƯỚNG DẪN BẢO QUẢN</h3>
+                        <span class="dropdown-icon">▼</span>
+                    </div>
+                    <div class="section-content">
+                        Thông tin về cách bảo quản sản phẩm
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>ĐÁNH GIÁ</h3>
+                        <span class="dropdown-icon">▼</span>
+                    </div>
+                    <div class="section-content">
+                        Các đánh giá từ khách hàng về sản phẩm
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Thêm modal xác nhận vào cuối trang -->
+<div id="confirm-cart-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Xác nhận thêm vào giỏ hàng</h2>
+        <div class="confirm-details">
+            <div class="confirm-item">
+                <span class="confirm-label">Sản phẩm:</span>
+                <span class="confirm-value product-name" th:text="${mon.tenMon}"></span>
+            </div>
+            <div class="confirm-item">
+                <span class="confirm-label">Mã người dùng:</span>
+                <span class="confirm-value user-id" th:text="${user.id}"></span>
+            </div>
+            <div class="confirm-item">
+                <span class="confirm-label">Mã sản phẩm:</span>
+                <span class="confirm-value product-id" th:text="${mon.idMon}"></span>
+            </div>
+            <div class="confirm-item">
+                <span class="confirm-label">Size:</span>
+                <span class="confirm-value size-id"></span>
+            </div>
+            <div class="confirm-item">
+                <span class="confirm-label">Số lượng:</span>
+                <span class="confirm-value quantity"></span>
+            </div>
+            <div class="confirm-item">
+                <span class="confirm-label">Thành tiền:</span>
+                <span class="confirm-value total-price"></span>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="cancel-btn">Hủy</button>
+            <button class="confirm-btn">Xác nhận</button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Section -->
+<footer class="footer-container">
+    <div class="footer-content">
+        <!-- Company Info -->
+        <div class="footer-column company-info">
+            <h3 class="footer-heading">CÔNG TY TNHH DuongDai</h3>
+            <p class="company-description">
+                Công ty phân phối hợp lệ sản phẩm cà phê thương hiệu DND Coffee®.
+            </p>
+            <div class="certification">
+                <img src="../image/logo_bct.webp" alt="Bộ Công Thương certification" class="certification-image">
+            </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="footer-column contact-info">
+            <h3 class="footer-heading">THÔNG TIN</h3>
+            <p class="address">
+                Trụ sở văn phòng: 17 Trần Phú, Hà Đông, Hà Nội
+            <p class="phone">Điện thoại: 0365619789</p>
+            <p class="email">Email: duongdaidnd@gmai;.com</p>
+        </div>
+
+        <!-- Customer Support -->
+        <div class="footer-column customer-support">
+            <h3 class="footer-heading">HỖ TRỢ KHÁCH HÀNG</h3>
+            <ul class="support-links">
+                <li><a href="#">• Tìm kiếm</a></li>
+                <li><a href="#">• Chính sách đổi trả</a></li>
+                <li><a href="#">• Chính sách bảo mật</a></li>
+                <li><a href="#">• Chính sách giao hàng</a></li>
+                <li><a href="#">• Liên hệ</a></li>
+            </ul>
+        </div>
+
+        <!-- Customer Care -->
+        <div class="footer-column customer-care">
+            <h3 class="footer-heading">CHĂM SÓC KHÁCH HÀNG</h3>
+            <div class="phone-contact">
+                <div class="phone-icon-container">
+                    <span class="phone-icon">📞</span>
+                </div>
+                <div class="contact-numbers">
+                    <p class="bagged-coffee">Cà phê đóng gói: 091.756.1212</p>
+                    <p class="cafe-service">Cà phê tại quán: 1900.1755</p>
+                    <p class="email-contact">duongdaidnd.com</p>
+                </div>
+            </div>
+
+            <div class="social-media">
+                <h4 class="social-heading">FOLLOW US</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-link"><span class="social-icon">facebook</span></a>
+                    <a href="#" class="social-link"><span class="social-icon">twitter</span></a>
+                    <a href="#" class="social-link"><span class="social-icon">youtube</span></a>
+                    <a href="#" class="social-link"><span class="social-icon">instagram</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script th:src="@{/js/muangay.js}"></script>
+<script>
+    // Simple toggle for section content
+    document.querySelectorAll('.section-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            header.querySelector('.dropdown-icon').textContent = content.style.display === 'block' ? '▲' : '▼';
+        });
+    });
+    document.querySelectorAll('.size-option').forEach(option => {
+        option.addEventListener('click', () => {
+            // Bỏ chọn tất cả
+            document.querySelectorAll('.size-option').forEach(o => o.classList.remove('selected'));
+            // Đánh dấu chọn
+            option.classList.add('selected');
+            // Cập nhật giá
+            const price = option.getAttribute('data-price');
+            const formatted = Number(price).toLocaleString('vi-VN');
+            document.querySelector('.price-value').textContent = formatted + ' VNĐ';
+        });
+    });
+</script>
+<script>
+    // Thêm phần này vào file JavaScript của bạn hoặc thêm trực tiếp vào file HTML trong thẻ <script>
+
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lấy các phần tử DOM
+        const addToCartButton = document.querySelector('.add-to-cart');
+        const modal = document.getElementById('confirm-cart-modal');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const cancelBtn = document.querySelector('.cancel-btn');
+        const confirmBtn = document.querySelector('.confirm-btn');
+        const quantityInput = document.querySelector('.quantity-input');
+        const decreaseBtn = document.querySelector('.decrease');
+        const increaseBtn = document.querySelector('.increase');
+        const sizeOptions = document.querySelectorAll('.size-option');
+
+        // Biến lưu trữ thông tin sản phẩm
+        let selectedSize = null;
+        let selectedSizeId = null;
+        let selectedPrice = 0;
+
+        // Khởi tạo giá trị mặc định cho size (nếu có)
+        if (sizeOptions.length > 0) {
+            selectedSize = sizeOptions[0].textContent.trim();
+            selectedSizeId = sizeOptions[0].getAttribute('data-id');
+            selectedPrice = parseFloat(sizeOptions[0].getAttribute('data-price'));
+        }
+
+        // Xử lý sự kiện khi chọn size
+        sizeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Bỏ chọn tất cả
+                sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                // Chọn size hiện tại
+                this.classList.add('selected');
+                // Lưu thông tin size được chọn
+                selectedSize = this.textContent.trim();
+                selectedSizeId = this.getAttribute('data-id');
+                selectedPrice = parseFloat(this.getAttribute('data-price'));
+            });
+        });
+
+        // Xử lý sự kiện nút tăng giảm số lượng
+        decreaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+            }
+        });
+
+        increaseBtn.addEventListener('click', function() {
+            let currentValue = parseInt(quantityInput.value);
+            quantityInput.value = currentValue + 1;
+        });
+
+        // Xử lý sự kiện khi nhấn nút "Thêm vào giỏ"
+        addToCartButton.addEventListener('click', function() {
+            // Lấy thông tin số lượng hiện tại
+            const quantity = parseInt(quantityInput.value);
+
+            // Cập nhật thông tin hiển thị trong modal
+            document.querySelector('.size-id').textContent = selectedSize + ' (ID: ' + selectedSizeId + ')';
+            document.querySelector('.quantity').textContent = quantity;
+
+            // Tính tổng tiền
+            const totalPrice = quantity * selectedPrice;
+            document.querySelector('.total-price').textContent = formatCurrency(totalPrice) + ' VNĐ';
+
+            // Hiển thị modal
+            modal.style.display = 'block';
+        });
+
+        // Đóng modal khi nhấn nút đóng hoặc hủy
+        closeModalBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Đóng modal khi click bên ngoài
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Xử lý khi nhấn nút xác nhận
+        confirmBtn.addEventListener('click', function() {
+            // Tạo đối tượng chứa thông tin sản phẩm để thêm vào giỏ hàng
+            const cartItem = {
+
+                monId: document.querySelector('.product-id').textContent,
+                sizeId: selectedSizeId,
+                userId: document.querySelector('.user-id').textContent,
+                soLuong: parseInt(quantityInput.value),
+                ghiChu: document.getElementById('note')?.value || ''
+            };
+
+            // Thêm vào giỏ hàng (đoạn này có thể thay bằng AJAX call đến server)
+            console.log('Đã thêm vào giỏ hàng:', cartItem);
+
+            // Hiển thị thông báo thành công
+            alert('Đã thêm sản phẩm vào giỏ hàng!');
+
+            // Đóng modal
+            modal.style.display = 'none';
+        });
+
+        // Hàm định dạng tiền tệ
+        function formatCurrency(amount) {
+            return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+
+        if (confirmBtn) {
+            confirmBtn.addEventListener('click', function () {
+                const monId = document.querySelector('.product-id').textContent.trim();
+                const userId = document.querySelector('.user-id').textContent.trim();
+                const sizeId = selectedSizeId;
+                const soLuong = document.querySelector('.quantity').textContent.trim();
+                const ghiChu = document.getElementById('note')?.value || '';
+
+                // Lấy token CSRF từ cookie
+                const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+                const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+                fetch('/api/cart/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        [csrfHeader]: csrfToken  // Thêm CSRF token vào header
+                    },
+                    credentials: 'include',  // Gửi kèm cookie để Spring đọc token
+                    body: JSON.stringify({
+                        monId: parseInt(monId),
+                        sizeId: parseInt(sizeId),
+                        userId: parseInt(userId),
+                        soLuong: parseInt(soLuong),
+                        ghiChu: ghiChu
+                    })
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => { throw new Error(text) });
+                        }
+                        return response.text();
+                    })
+                    .then(message => {
+                        alert(message);
+                        window.location.reload();
+                        // Có thể cập nhật số lượng sản phẩm trong giỏ hàng ở đây
+                    })
+                    .catch(error => {
+                        console.error('Lỗi:', error);
+                        alert(error.message);
+                    });
+            });
+        }
+    });
+    // Thêm vào JavaScript hoặc sử dụng Thymeleaf để kiểm tra trên máy chủ
+    const isAuthenticated = /*[[${#authentication.authenticated}]]*/ false;
+    function checkLoginStatus() {
+        // Kiểm tra thông qua một endpoint API
+        fetch('/api/auth/status', {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.authenticated) {
+                    // Người dùng chưa đăng nhập, chuyển hướng đến trang đăng nhập
+                    window.location.href = '/login?redirect=' + encodeURIComponent(window.location.href);
+                }
+            });
+    }
+
+    // Cập nhật số lượng sản phẩm
+    function updateQuantity(monId, sizeId, change) {
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+
+        $.ajax({
+            url: '/api/cart/update',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                monId: monId,
+                sizeId: sizeId,
+                soLuongThayDoi: change
+            }),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            success: function(response) {
+                // Tải lại trang để cập nhật giỏ hàng
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('Đã xảy ra lỗi khi cập nhật giỏ hàng');
+            }
+        });
+    }
+
+    // Xóa sản phẩm khỏi giỏ hàng
+    function removeFromCart(monId, sizeId) {
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+
+        $.ajax({
+            url: '/api/cart/remove',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                monId: monId,
+                sizeId: sizeId
+            }),
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            success: function(response) {
+                // Tải lại trang để cập nhật giỏ hàng
+                location.reload();
+            },
+            error: function(xhr) {
+                alert('Đã xảy ra lỗi khi xóa sản phẩm khỏi giỏ hàng');
+            }
+        });
+    }
+
+    // Kiểm tra khi nhấn nút "Thêm vào giỏ hàng"
+    document.querySelector('.confirm-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        checkLoginStatus();
+        // Nếu đã đăng nhập, form sẽ được submit
+        if (isAuthenticated) {
+            document.getElementById('confirm-cart-modal').submit();
+        }
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tải thông tin giỏ hàng khi trang được load
+        loadCartItems();
+
+        // Thêm sự kiện cho icon giỏ hàng
+        document.getElementById('menu-cart').addEventListener('click', function() {
+            document.getElementById('cartbar').classList.add('open');
+        });
+
+        // Đóng giỏ hàng
+        document.getElementById('close-cart').addEventListener('click', function() {
+            document.getElementById('cartbar').classList.remove('open');
+        });
+    });
+
+    function loadCartItems() {
+        const token = document.querySelector('meta[name="_csrf"]').content;
+        const header = document.querySelector('meta[name="_csrf_header"]').content;
+
+        fetch('/api/cart', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                [header]: token
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Không thể tải giỏ hàng');
+            })
+            .then(data => {
+                updateCartUI(data);
+            })
+            .catch(error => {
+                console.error('Lỗi khi tải giỏ hàng:', error);
+            });
+    }
+
+    function updateCartUI(cartItems) {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const emptyCart = document.getElementById('empty-cart');
+        const cartCount = document.querySelector('.cart-count');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        // Xóa nội dung hiện tại
+        cartItemsContainer.innerHTML = '';
+
+        // Thêm lại thông báo giỏ hàng trống
+        cartItemsContainer.appendChild(emptyCart);
+
+        if (!cartItems || cartItems.length === 0) {
+            emptyCart.style.display = 'block';
+            cartCount.textContent = '0';
+            checkoutBtn.disabled = true;
+            document.getElementById('cart-total-price').textContent = '0đ';
+            return;
+        }
+
+        // Ẩn thông báo giỏ hàng trống
+        emptyCart.style.display = 'none';
+        checkoutBtn.disabled = false;
+
+        // Cập nhật số lượng sản phẩm trên icon giỏ hàng
+        let totalItems = 0;
+        let totalPrice = 0;
+
+        cartItems.forEach(item => {
+            totalItems += item.soLuong;
+            totalPrice += item.giaBan * item.soLuong;
+
+            const cartItemElement = document.createElement('div');
+            cartItemElement.className = 'cart-item';
+            cartItemElement.innerHTML = `
+            <div class="cart-item-image">
+                <img src="${item.hinhAnh}" alt="${item.tenMon}">
+            </div>
+            <div class="cart-item-details">
+                <div class="cart-item-name">${item.tenMon}</div>
+                <div class="cart-item-size">Size: ${item.tenSize}</div>
+                <div class="cart-item-price">${formatCurrency(item.giaBan)}đ</div>
+                <div class="cart-item-quantity">
+                    <button class="quantity-btn minus" onclick="updateCartQuantity(${item.idMon}, '${item.tenSize}', -1)">-</button>
+                    <span class="quantity">${item.soLuong}</span>
+                    <button class="quantity-btn plus" onclick="updateCartQuantity(${item.idMon}, '${item.tenSize}', 1)">+</button>
+                </div>
+                <button class="remove-btn" onclick="removeFromCart(${item.idMon}, '${item.tenSize}')">Xóa</button>
+            </div>
+        `;
+
+            cartItemsContainer.appendChild(cartItemElement);
+        });
+
+        cartCount.textContent = totalItems;
+        document.getElementById('cart-total-price').textContent = formatCurrency(totalPrice) + 'đ';
+    }
+
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN').format(amount);
+    }
+
+    // Các hàm cập nhật số lượng và xóa sản phẩm có thể thêm sau
+    function updateCartQuantity(idMon, tenSize, change) {
+        const token = document.querySelector('meta[name="_csrf"]').content;
+        const header = document.querySelector('meta[name="_csrf_header"]').content;
+
+        fetch('/api/cart/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                [header]: token
+            },
+            body: JSON.stringify({
+                idMon: idMon,
+                tenSize: tenSize,
+                soLuongThayDoi: change
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    loadCartItems(); // Tải lại giỏ hàng sau khi cập nhật
+                    return;
+                }
+                throw new Error('Không thể cập nhật giỏ hàng');
+            })
+            .catch(error => {
+                console.error('Lỗi khi cập nhật giỏ hàng:', error);
+            });
+    }
+
+    function removeFromCart(idMon, tenSize) {
+        const token = document.querySelector('meta[name="_csrf"]').content;
+        const header = document.querySelector('meta[name="_csrf_header"]').content;
+
+        fetch('/api/cart/remove', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                [header]: token
+            },
+            body: JSON.stringify({
+                idMon: idMon,
+                tenSize: tenSize
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    loadCartItems(); // Tải lại giỏ hàng sau khi xóa
+                    return;
+                }
+                throw new Error('Không thể xóa sản phẩm khỏi giỏ hàng');
+            })
+            .catch(error => {
+                console.error('Lỗi khi xóa sản phẩm:', error);
+            });
+    }
+</script>
+</body>
+
+</html>

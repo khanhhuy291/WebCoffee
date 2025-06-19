@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}" th:if="${_csrf}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" th:if="${_csrf}">
+    <title>Quản Lý Ca Làm Việc | DND Coffee</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/client.css}" />
+    <link rel="stylesheet" th:href="@{/css/calamviec.css}" />
+<!--    <link rel="stylesheet" th:href="@{/css/header.css}" />-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h2>DND Coffee Admin</h2>
+    </div>
+    <div class="menu-items">
+        <a class="menu-item" th:href="@{/admin/}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Bảng điều khiển</span>
+        </a>
+
+        <div class="menu-category">Quản lý danh mục</div>
+        <a class="menu-item" th:href="@{/admin/users}">
+            <i class="fas fa-users-cog"></i>
+            <span>Quản lý tài khoản</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/employee}">
+            <i class="fas fa-user-tie"></i>
+            <span>Quản lý nhân viên</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/client}">
+            <i class="fas fa-user-friends"></i>
+            <span>Quản lý khách hàng</span>
+        </a>
+
+        <div class="menu-category">Quản lý kho và menu</div>
+        <a class="menu-item" th:href="@{/admin/quanlikho}">
+            <i class="fas fa-warehouse"></i>
+            <span>Quản lý kho</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/nhapkho}">
+            <i class="fas fa-truck-loading"></i>
+            <span>Nhập kho</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/xuatkho}">
+            <i class="fas fa-dolly-flatbed"></i>
+            <span>Xuất kho</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/products}">
+            <i class="fas fa-coffee"></i>
+            <span>Quản lý Menu</span>
+        </a>
+
+        <div class="menu-category">Quản lý lương</div>
+        <a class="menu-item active" th:href="@{/admin/calamviec}">
+            <i class="fas fa-user-clock"></i>
+            <span>Quản lý ca</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/lichlamviec}">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Lịch làm việc</span>
+        </a>
+
+        <div class="menu-category">Quản lý bán hàng</div>
+        <a class="menu-item" th:href="@{/admin/donhang}">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Quản lý đơn hàng</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/reports}">
+            <i class="fas fa-chart-line"></i>
+            <span>Báo cáo thống kê</span>
+        </a>
+
+        <div class="menu-category">Hệ thống</div>
+        <a class="menu-item" th:href="@{/admin/settings}">
+            <i class="fas fa-cog"></i>
+            <span>Cài đặt</span>
+        </a>
+        <a class="menu-item" th:href="@{/logout}">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Đăng xuất</span>
+        </a>
+    </div>
+</div>
+
+
+<!-- Main Content -->
+<main class="main-content">
+    <!-- Header -->
+    <div class="header">
+        <h1 class="page-title">Quản lý Ca Làm Việc</h1>
+
+        <div class="header-actions">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Tìm kiếm ca...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+
+            <button class="btn btn-outline">
+                <i class="fas fa-file-export"></i>
+                <span>Xuất Excel</span>
+            </button>
+
+            <div class="user-dropdown">
+                <div class="user-btn">
+                    <div class="user-info">
+                        <div class="user-name">Nguyễn Admin</div>
+                        <div class="user-role">Quản trị viên</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="shift-stats">
+        <div class="shift-stat-item">
+            <div class="shift-stat-icon" style="background-color: rgba(37, 99, 235, 0.1); color: #2563eb;">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="shift-stat-info">
+                <div class="shift-stat-value" th:text="${caLamViecs.getSize()}">0</div>
+                <div class="shift-stat-label">Tổng số ca</div>
+            </div>
+        </div>
+
+        <div class="shift-stat-item">
+            <div class="shift-stat-icon" style="background-color: rgba(16, 185, 129, 0.1); color: #10b981;">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="shift-stat-info">
+                <div class="shift-stat-value">3</div>
+                <div class="shift-stat-label">Ca sáng</div>
+            </div>
+        </div>
+
+        <div class="shift-stat-item">
+            <div class="shift-stat-icon" style="background-color: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                <i class="fas fa-sun"></i>
+            </div>
+            <div class="shift-stat-info">
+                <div class="shift-stat-value">2</div>
+                <div class="shift-stat-label">Ca chiều</div>
+            </div>
+        </div>
+
+        <div class="shift-stat-item">
+            <div class="shift-stat-icon" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="shift-stat-info">
+                <div class="shift-stat-value">1</div>
+                <div class="shift-stat-label">Ca tối</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shifts Table -->
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Danh sách ca làm việc</h2>
+            <div class="card-actions">
+                <button class="btn btn-primary" id="addShiftBtn">
+                    <i class="fas fa-plus"></i>
+                    <span>Thêm ca làm</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table shift-table">
+                    <thead>
+                    <tr>
+                        <th>ID Ca</th>
+                        <th>Giờ bắt đầu</th>
+                        <th>Giờ kết thúc</th>
+                        <th>Thời lượng</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ca : ${caLamViecs}">
+                        <td class="shift-id" th:text="${ca.idCa}"></td>
+                        <td class="shift-time-cell">
+                            <i class="fas fa-play-circle"></i>
+                            <span th:text="${#dates.format(ca.gioVao, 'HH:mm')}"></span>
+                        </td>
+                        <td class="shift-time-cell">
+                            <i class="fas fa-stop-circle"></i>
+                            <span th:with="endTime=${ca.gioRa != null ? ca.gioRa : T(java.util.Date).from(ca.gioVao.toInstant().plusSeconds(7200))}"
+                                  th:text="${#dates.format(endTime, 'HH:mm')}">
+                            </span>
+                        </td>
+                        <td th:with="startTime=${ca.gioVao}, endTime=${ca.gioRa != null ? ca.gioRa : T(java.util.Date).from(ca.gioVao.toInstant().plusSeconds(7200))},
+                                     duration=${T(java.time.Duration).between(startTime.toInstant(), endTime.toInstant()).toMinutes()}"
+                            th:text="${duration / 60 + ' giờ ' + duration % 60 + ' phút'}">
+                        </td>
+                        <td>
+                            <span class="shift-status"
+                                  th:classappend="${#dates.format(ca.gioVao, 'HH:mm') &lt; '12:00' ? 'status-morning' :
+                                                  (#dates.format(ca.gioVao, 'HH:mm') &lt; '18:00' ? 'status-afternoon' : 'status-evening')}">
+                                <i class="fas"
+                                   th:classappend="${#dates.format(ca.gioVao, 'HH:mm') &lt; '12:00' ? 'fa-sun' :
+                                                 (#dates.format(ca.gioVao, 'HH:mm') &lt; '18:00' ? 'fa-cloud-sun' : 'fa-moon')}">
+                                </i>
+                                <span th:text="${#dates.format(ca.gioVao, 'HH:mm') &lt; '12:00' ? 'Ca sáng' :
+                                              (#dates.format(ca.gioVao, 'HH:mm') &lt; '18:00' ? 'Ca chiều' : 'Ca tối')}">
+                                </span>
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="action-btn btn-view" data-tooltip="Xem chi tiết">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn btn-edit" data-tooltip="Chỉnh sửa">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn btn-delete" data-tooltip="Xóa">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty state -->
+            <div id="emptyState" style="display: none;" class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h3 class="empty-state-text">Không có ca làm việc nào</h3>
+                <p>Hãy tạo ca làm việc mới để quản lý thời gian làm việc của nhân viên</p>
+                <button class="empty-state-action" id="addShiftEmptyBtn">
+                    <i class="fas fa-plus"></i> Thêm ca làm việc
+                </button>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container">
+            <nav aria-label="Điều hướng trang">
+                <ul class="pagination" id="shiftPagination">
+                    <!-- First page -->
+                    <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/admin/calamviec(pageNo=1)}" aria-label="Đầu trang">
+                            <i class="fas fa-angle-double-left"></i>
+                        </a>
+                    </li>
+
+                    <!-- Previous page -->
+                    <li class="page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/admin/calamviec(pageNo=${currentPage - 1})}" aria-label="Trang trước">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+
+                    <!-- Current page info -->
+                    <li class="page-item page-info">
+                        <span class="page-link">
+                            Trang <span th:text="${currentPage}">1</span> / <span th:text="${totalPages}">5</span>
+                        </span>
+                    </li>
+
+                    <!-- Next page -->
+                    <li class="page-item" th:classappend="${currentPage == totalPages ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/admin/calamviec(pageNo=${currentPage + 1})}" aria-label="Trang sau">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+
+                    <!-- Last page -->
+                    <li class="page-item" th:classappend="${currentPage == totalPages ? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{/admin/calamviec(pageNo=${totalPages})}" aria-label="Cuối trang">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</main>
+
+<!-- Modal Thêm/Sửa Ca Làm Việc -->
+<div id="shiftModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Thêm ca làm việc mới</h2>
+            <button class="close-btn" id="closeShiftModalBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <form id="shiftForm">
+                <input type="hidden" id="shiftId">
+
+                <div class="form-group">
+                    <label for="startTime">
+                        <i class="fas fa-play-circle"></i> Giờ bắt đầu <span class="required">*</span>
+                    </label>
+                    <input type="time" id="startTime" class="form-control" required>
+                    <small class="form-text">Thời gian bắt đầu ca làm việc</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="endTime">
+                        <i class="fas fa-stop-circle"></i> Giờ kết thúc <span class="required">*</span>
+                    </label>
+                    <input type="time" id="endTime" class="form-control" required>
+                    <small class="form-text">Thời gian kết thúc ca làm việc</small>
+                </div>
+
+                <div class="shift-duration" id="shiftDuration">
+                    <i class="fas fa-clock"></i> Thời lượng: <span>-</span>
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="cancelShiftBtn">
+                <i class="fas fa-times"></i> Huỷ
+            </button>
+            <button type="button" class="btn btn-primary" id="saveShiftBtn">
+                <i class="fas fa-save"></i> Lưu ca làm việc
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Xem Chi Tiết Ca Làm Việc -->
+<div id="viewShiftModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">Chi tiết ca làm việc</h2>
+            <button class="close-btn" id="closeViewModalBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div id="shiftDetails" class="shift-details">
+                <!-- Nội dung sẽ được điền bằng JavaScript -->
+            </div>
+
+            <div class="shift-statistics">
+                <h3><i class="fas fa-chart-bar"></i> Thống kê ca làm việc</h3>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">25</div>
+                        <div class="stat-label">Lịch làm việc</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">Nhân viên đã làm</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">150</div>
+                        <div class="stat-label">Giờ làm việc</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="closeDetailBtn">
+                <i class="fas fa-times"></i> Đóng
+            </button>
+            <button type="button" class="btn btn-primary" id="editFromViewBtn">
+                <i class="fas fa-edit"></i> Chỉnh sửa
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Xác Nhận Xóa -->
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content confirm-modal">
+        <div class="modal-header">
+            <h2 class="modal-title">Xác nhận xóa</h2>
+            <button class="close-btn" id="closeDeleteModalBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="confirm-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Bạn có chắc chắn muốn xóa ca làm việc này?</p>
+                <p class="warning-text">Thao tác này không thể hoàn tác và sẽ xóa tất cả lịch làm việc liên quan đến ca này.</p>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline" id="cancelDeleteBtn">
+                <i class="fas fa-times"></i> Huỷ
+            </button>
+            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                <i class="fas fa-trash"></i> Xóa ca làm việc
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Notification Container -->
+<div id="notificationContainer"></div>
+
+<script th:inline="javascript">
+    // Get CSRF token and header from meta tags
+    const csrfToken = document.querySelector('meta[name="_csrf"]')?.content;
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
+</script>
+<script th:src="@{/js/calamviec.js}"></script>
+</body>
+</html>

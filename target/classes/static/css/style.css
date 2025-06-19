@@ -1,0 +1,373 @@
+#header {
+    background-color : rgba(212,58,58,255);
+    font-weight: bold;
+    font-size:15px
+}
+.search-bar {    
+    padding-top:10px;
+    display: flex;
+    padding-left:1100px;
+}
+.search-bar input {
+    border: none;
+    outline: none;
+    width:300px;
+    
+}
+
+.container{
+    max-width: 1300px;
+    margin: 0px auto;
+    
+}
+#logo img{
+    max-width : 82px;
+    height: auto;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    justify-items: center;
+    
+}
+#main-menu{
+    display: flex;
+    list-style: none;
+    margin:0;
+    padding-top :20px;
+    z-index: 1000;
+}
+#main-menu li{
+    position: relative;
+}
+
+#main-menu li a{
+    color: white;
+    display: block;
+    padding: 25px 50px;
+    /*background-color: black;*/
+    text-decoration: none; 
+      
+}
+#main-menu ul.sub-menu{
+    position: absolute;
+    background-color:  rgba(83,56,44,255);
+    padding: 15px 0px;
+    list-style: none;
+    width : 100%;
+    display: none ;
+    border: 0.5px solid white;
+    z-index: 1100;
+}
+#main-menu li:hover>ul.sub-menu{
+    display:block;
+}
+#main-menu ul.sub-menu a{
+    padding: 8px 15px;
+    border-bottom: 1px solid white;
+    left :0px;
+}
+#main-menu ul.sub-menu li:hover>a{
+    border-bottom: 1px solid white;
+}
+#main-menu ul.sub-menu li:last-child>a{
+    border-bottom: none
+}
+#main-menu ul.sub-menu ul.sub-menu{
+    left: 100%;
+    top : -16px;
+    z-index: 1200;
+}
+/*Thiết lập border khi hover*/
+#main-menu>li>a{
+    position: relative;
+}
+#main-menu>li>a::before{
+    content:"";
+    height: 4px;
+    width: 0px;
+    background: yellowgreen;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: 0.25s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+#main-menu>li:hover>a::before{
+    width: 100%;
+}
+#main-menu > li:hover > a {
+    background: rgba(83,56,44,255); /* Đổi nền khi hover */
+    color: white; /* Đổi màu chữ để dễ nhìn */
+}
+
+#main-menu>li.has-child::after{
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: '\f107';
+    color: rgba(255, 255, 255, 0.632);
+    position: absolute;
+    top:0px;
+    right:30px;
+    padding:25px 0px;
+    
+}
+
+#main-menu .sub-menu li:hover>a{
+    color: red;
+}
+
+#main-menu .sub-menu>li.has-child::after{
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    content: '\f105';
+    color: rgba(255, 255, 255, 0.632);
+    position: absolute;
+    right:20px;
+    top:5px;
+    
+}
+#main-menu .sub-menu>li.has-child:hover::after{
+    color:red;
+}
+.note{
+    background-color:rgba(83,56,44,255);
+}
+#mid{
+    width: 100%;
+    height: 1200px;
+    background: url('../image/Anh2.png');
+    background-size: cover;
+    background-color: black;
+}
+
+#left {
+    position: relative;
+    background-image: url('../image/Anh3.png');
+    background-size: cover;
+    background-color: yellow;
+    width: 50%;
+    height: 450px;
+    float: left;
+    display: flex;
+    color: white;
+}
+
+#left::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#left * {
+    position: relative;
+    z-index: 1;
+}
+
+#left h1 {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 50px 20px;
+}
+
+
+.address-container {
+    width: 80%;
+    max-width: 400px;
+
+    padding-top: 190px;
+    padding-left: 120px
+}
+
+
+.address-primary {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.address-details {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+
+.directions {
+    font-size: 18px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#right{
+    position: relative;
+    background-color: rgb(253,232,165);
+    width : 50%;
+    height : 450px;
+    float: left;
+}
+.news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0px 60px;
+    padding-top:50px;
+}
+
+.news-title {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    
+}
+
+.view-all {
+    color: #5a3d2b;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.view-all:after {
+    content: "›";
+    margin-left: 5px;
+    font-size: 20px;
+}
+.news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0px 60px;
+}
+
+.news-item {
+    display: flex;
+    overflow: hidden;
+}
+
+.news-image {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.news-content {
+    padding: 12px;
+    flex: 1;
+    
+}
+.news-content a {
+    text-decoration: none; 
+}
+.news-heading {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+    
+}
+.news-heading:hover {
+    color: red;
+}
+
+
+.news-date {
+    color: #666;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.news-date:before {
+    content: "🗓️";
+    margin-right: 5px;
+}
+.newsletter {
+    display: flex;
+    margin-top: 30px;
+    padding: 0px 60px;
+    
+}
+
+.newsletter-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.newsletter-button {
+    padding: 12px 20px;
+    background-color: #5a3d2b;
+    border: none;
+    color: white;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+
+#foot {
+    
+    background-color: rgb(83, 56, 44);
+    width: 100%;
+    float:left;
+}
+
+.highlands-footer {
+    background-color: #5a4030;
+    color: white;
+    padding: 15px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    border-radius: 3px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 50px;
+}
+
+.footer-link {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}

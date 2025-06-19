@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <link rel="stylesheet" th:href="@{/css/resetcss.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/datdouong.css}">
+    <link rel="icon" th:href="@{/image/Anh1.png}">
+    <title>DND COFFEE</title>
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+</head>
+<body th:data-username="${tenNguoiDung}">
+<div class="top-bar">
+    GIAO HÀNG TOÀN QUỐC
+</div>
+
+<div class="header">
+    <div class="menu-button" id="menu-toggle">
+        <div class="menu-icon">☰</div>
+        <div class="menu-text">MENU</div>
+    </div>
+    <a th:href = "@{/index}">
+        <img th:src="@{/image/Anh1.png}" alt="DND Coffee" class="logo">
+    </a>
+    <div class="search-bar">
+        <div class="search-form">
+            <input type="text" class="search-input" placeholder="Tìm sản phẩm...">
+            <button class="search-button">
+                <span class="search-icon">⌕</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="user-actions">
+        <a th:if="${tenNguoiDung == null}" th:href="@{/login}" style="text-decoration: none;">
+            <div class="account">
+                <div class="user-icon">👤</div>
+                <div>Tài khoản</div>
+            </div>
+        </a>
+
+        <div th:if="${tenNguoiDung != null}" class="dropdown">
+            <div class="account">
+                <div class="user-icon">👤</div>
+                <div th:text="${tenNguoiDung}">Tên người dùng</div>
+            </div>
+            <div class="dropdown-content">
+                <a th:href="@{/ho-so}">Hồ sơ cá nhân</a>
+                <a th:href="@{/don-mua}">Đơn mua</a>
+                <a th:href="@{/logout}">Đăng xuất</a>
+            </div>
+        </div>
+
+        <div class="cart" id = "menu-cart">
+            <div class="cart-icon">🛒</div>
+            <div class="cart-count">0</div>
+            <div>Giỏ hàng</div>
+        </div>
+    </div>
+    <nav class="sidebar" id="sidebar">
+        <div class="close-btn" id="close-menu">✖</div>
+        <ul class="menu">
+
+            <li class="has-submenu">
+                <a href="#">TRANG CHỦ</a>
+                <ul class="submenu">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="../webbuy/xemtatca.html">FLASH DEAL</a></li>
+                    <li><a href="#">TẾT 2025</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="../webbuy/xemtatca.html">FLASH DEAL</a>
+                <ul class="submenu">
+                    <li><a href="../webbuy/xemtatca.html">FLASH DEAL</a></li>
+                </ul>
+            </li>
+            <li><a href="#">MUA SỈ</a></li>
+            <li class="has-submenu">
+                <a href="#">GIỚI THIỆU</a>
+                <ul class="submenu">
+                    <li><a href="#">Cà Phê Rang Xay</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Giới thiệu Sản phẩm DND Coffee®</a></li>
+                </ul>
+            </li>
+            <li><a href="#">TIN TỨC</a></li>
+        </ul>
+    </nav>
+
+    <nav class="cartbar" id="cartbar">
+        <div class="close-btn" id="close-cart">✖</div>
+        <div class="cart-header">
+            GIỎ HÀNG
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Các sản phẩm trong giỏ hàng sẽ được thêm vào đây qua JavaScript -->
+
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div>Tổng tiền:</div>
+                <div class="cart-total-price">7.758.000đ</div>
+            </div>
+            <a th:href="@{/thanhtoan}">
+                <button class="checkout-btn">Thanh toán</button>
+            </a>
+        </div>
+    </nav>
+</div>
+
+
+
+<div class="nav-bar">
+    <a href="#" class="nav-item home-icon">🏠</a>
+    <a href="#" class="nav-item active">TRANG CHỦ</a>
+    <a href="#" class="nav-item">FLASH DEAL</a>
+    <a href="#" class="nav-item">MUA SỈ</a>
+    <a href="#" class="nav-item">GIỚI THIỆU</a>
+    <a href="#" class="nav-item">TIN TỨC</a>
+</div>
+
+<div class="category-bar">
+    <a href="#" class="category-item">Cà Phê Rang Xay</a>
+    <a href="#" class="category-item">Cà Phê Hạt</a>
+    <a href="#" class="category-item">Cà Phê Uống Liền</a>
+    <a href="#" class="category-item">Cà Phê Hòa Tan</a>
+</div>
+
+<div class="banner">
+    <img src="../image/Anhsale.png" alt="Deal đặc quyền tri ân khách hàng">
+</div>
+
+<div class="features">
+    <div class="feature">
+        <img src="../image/policy_1.webp" alt="Giao hàng">
+        <div class="feature-text">Giao hàng</div>
+    </div>
+
+    <div class="feature">
+        <img src="../image/policy_2.webp" alt="Độc quyền">
+        <div class="feature-text">ĐỘC QUYỀN</div>
+    </div>
+
+    <div class="feature">
+        <img src="../image/policy_3.webp" alt="Bán chạy">
+        <div class="feature-text">Bán chạy</div>
+    </div>
+
+    <div class="feature">
+        <img src="../image/policy_4.webp" alt="Cửa hàng">
+        <div class="feature-text">Cửa hàng</div>
+    </div>
+
+    <div class="feature">
+        <img src="../image/policy_5.webp" alt="Cách pha">
+        <div class="feature-text">Cách pha</div>
+    </div>
+
+    <div class="feature">
+        <img src="../image/policy_6.webp" alt="Liên hệ">
+        <div class="feature-text">Liên hệ</div>
+    </div>
+</div>
+
+<div class="flash-sale-container" th:each="entry : ${menuMap}">
+    <div class="flash-sale-header">
+        <div class="flash-sale-title">
+            <span class="flash-icon">⚡</span>
+            <h2 th:text="${entry.key}">Tên loại</h2>
+            <span class="divider">|</span>
+        </div>
+        <a th:href="@{/Xemtatca/{loaiMon}(loaiMon= ${entry.key})}">
+        <button class="view-all-btn">
+            Xem tất cả
+        </button></a>
+    </div>
+
+    <div class="product-slider">
+        <div class="product-card" th:each="product : ${entry.value}" th:data-mon-id="${product.idMon}">
+            <div class="discount-badge">7%</div>
+            <a th:href="@{/Xemchitiet/{loaiMon}(loaiMon= ${product.tenMon})}">
+                <div class="product-image">
+                    <img th:src="@{${product.path}}" th:alt="${product.tenMon}">
+                </div>
+            </a>
+            <div class="product-info">
+                <h3 class="product-title" th:text="${product.tenMon}"></h3>
+                <div class="product-price"  th:if="${product.giaMonSizeResponses != null and !product.giaMonSizeResponses.isEmpty()}">
+                    <span class="current-price"
+                          th:text="${#numbers.formatDecimal(product.giaMonSizeResponses[0].giaBan, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+                </div>
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                    <button class="cart-btn">🛒</button>
+                </div>
+                <button class="buy-btn">
+                    <span class="cart-icon">🛒</span> Chọn mua
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer Section -->
+<footer class="footer-container">
+    <div class="footer-content">
+        <!-- Company Info -->
+        <div class="footer-column company-info">
+            <h3 class="footer-heading">CÔNG TY TNHH DuongDai</h3>
+            <p class="company-description">
+                Công ty phân phối hợp lệ sản phẩm cà phê thương hiệu DND Coffee®.
+            </p>
+            <div class="certification">
+                <img src="../image/logo_bct.webp" alt="Bộ Công Thương certification" class="certification-image">
+            </div>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="footer-column contact-info">
+            <h3 class="footer-heading">THÔNG TIN</h3>
+            <p class="address">
+                Trụ sở văn phòng: 17 Trần Phú, Hà Đông, Hà Nội
+            <p class="phone">Điện thoại: 0365619789</p>
+            <p class="email">Email: duongdaidnd@gmai;.com</p>
+        </div>
+
+        <!-- Customer Support -->
+        <div class="footer-column customer-support">
+            <h3 class="footer-heading">HỖ TRỢ KHÁCH HÀNG</h3>
+            <ul class="support-links">
+                <li><a href="#">• Tìm kiếm</a></li>
+                <li><a href="#">• Chính sách đổi trả</a></li>
+                <li><a href="#">• Chính sách bảo mật</a></li>
+                <li><a href="#">• Chính sách giao hàng</a></li>
+                <li><a href="#">• Liên hệ</a></li>
+            </ul>
+        </div>
+
+        <!-- Customer Care -->
+        <div class="footer-column customer-care">
+            <h3 class="footer-heading">CHĂM SÓC KHÁCH HÀNG</h3>
+            <div class="phone-contact">
+                <div class="phone-icon-container">
+                    <span class="phone-icon">📞</span>
+                </div>
+                <div class="contact-numbers">
+                    <p class="bagged-coffee">Cà phê đóng gói: 091.756.1212</p>
+                    <p class="cafe-service">Cà phê tại quán: 1900.1755</p>
+                    <p class="email-contact">duongdaidnd.com</p>
+                </div>
+            </div>
+
+            <div class="social-media">
+                <h4 class="social-heading">FOLLOW US</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-link"><span class="social-icon">facebook</span></a>
+                    <a href="#" class="social-link"><span class="social-icon">twitter</span></a>
+                    <a href="#" class="social-link"><span class="social-icon">youtube</span></a>
+                    <a href="#" class="social-link"><span class="social-icon">instagram</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script th:src="@{/js/muangay.js}"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.product-slider').slick({
+            slidesToShow: 5, // Hiển thị 5 sản phẩm mỗi lần
+            slidesToScroll: 1, // Cuộn 1 sản phẩm mỗi lần
+            autoplay: true, // Tự động chạy carousel
+            autoplaySpeed: 1500, // Tốc độ chuyển đổi (3 giây)
+            arrows: true, // Hiển thị mũi tên điều hướng
+            dots: true, // Hiển thị các dấu chấm điều hướng
+            infinite: true, // Cuộn vòng
+            responsive: [
+                {
+                    breakpoint: 768, // Cho các màn hình nhỏ hơn 768px
+                    settings: {
+                        slidesToShow: 1, // Hiển thị 1 sản phẩm
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 1024, // Cho các màn hình từ 768px đến 1024px
+                    settings: {
+                        slidesToShow: 2, // Hiển thị 2 sản phẩm
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+    });
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Tải thông tin giỏ hàng khi trang được load
+        loadCartItems();
+
+        // Thêm sự kiện cho icon giỏ hàng
+        document.getElementById('menu-cart').addEventListener('click', function() {
+            document.getElementById('cartbar').classList.add('open');
+        });
+
+        // Đóng giỏ hàng
+        document.getElementById('close-cart').addEventListener('click', function() {
+            document.getElementById('cartbar').classList.remove('open');
+        });
+    });
+
+    function loadCartItems() {
+        const token = document.querySelector('meta[name="_csrf"]').content;
+        const header = document.querySelector('meta[name="_csrf_header"]').content;
+
+        fetch('/api/cart', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                [header]: token
+            }
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Không thể tải giỏ hàng');
+            })
+            .then(data => {
+                updateCartUI(data);
+            })
+            .catch(error => {
+                console.error('Lỗi khi tải giỏ hàng:', error);
+            });
+    }
+
+    function updateCartUI(cartItems) {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const emptyCart = document.getElementById('empty-cart');
+        const cartCount = document.querySelector('.cart-count');
+        const checkoutBtn = document.getElementById('checkout-btn');
+
+        // Xóa nội dung hiện tại
+        cartItemsContainer.innerHTML = '';
+
+        // Thêm lại thông báo giỏ hàng trống
+        cartItemsContainer.appendChild(emptyCart);
+
+        if (!cartItems || cartItems.length === 0) {
+            emptyCart.style.display = 'block';
+            cartCount.textContent = '0';
+            checkoutBtn.disabled = true;
+            document.getElementById('cart-total-price').textContent = '0đ';
+            return;
+        }
+
+        // Ẩn thông báo giỏ hàng trống
+        emptyCart.style.display = 'none';
+        checkoutBtn.disabled = false;
+
+        // Cập nhật số lượng sản phẩm trên icon giỏ hàng
+        let totalItems = 0;
+        let totalPrice = 0;
+
+        cartItems.forEach(item => {
+            totalItems += item.soLuong;
+            totalPrice += item.giaBan * item.soLuong;
+
+            const cartItemElement = document.createElement('div');
+            cartItemElement.className = 'cart-item';
+            cartItemElement.innerHTML = `
+            <div class="cart-item-image">
+                <img src="${item.hinhAnh}" alt="${item.tenMon}">
+            </div>
+            <div class="cart-item-details">
+                <div class="cart-item-name">${item.tenMon}</div>
+                <div class="cart-item-size">Size: ${item.tenSize}</div>
+                <div class="cart-item-price">${formatCurrency(item.giaBan)}đ</div>
+                <div class="cart-item-quantity">
+                    <button class="quantity-btn minus" onclick="updateCartQuantity(${item.idMon}, '${item.tenSize}', -1)">-</button>
+                    <span class="quantity">${item.soLuong}</span>
+                    <button class="quantity-btn plus" onclick="updateCartQuantity(${item.idMon}, '${item.tenSize}', 1)">+</button>
+                </div>
+                <button class="remove-btn" onclick="removeFromCart(${item.idMon}, '${item.tenSize}')">Xóa</button>
+            </div>
+        `;
+
+            cartItemsContainer.appendChild(cartItemElement);
+        });
+
+        cartCount.textContent = totalItems;
+        document.getElementById('cart-total-price').textContent = formatCurrency(totalPrice) + 'đ';
+    }
+
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN').format(amount);
+    }
+
+    // Các hàm cập nhật số lượng và xóa sản phẩm có thể thêm sau
+    function updateCartQuantity(idMon, tenSize, change) {
+        const token = document.querySelector('meta[name="_csrf"]').content;
+        const header = document.querySelector('meta[name="_csrf_header"]').content;
+
+        fetch('/api/cart/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                [header]: token
+            },
+            body: JSON.stringify({
+                idMon: idMon,
+                tenSize: tenSize,
+                soLuongThayDoi: change
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    loadCartItems(); // Tải lại giỏ hàng sau khi cập nhật
+                    return;
+                }
+                throw new Error('Không thể cập nhật giỏ hàng');
+            })
+            .catch(error => {
+                console.error('Lỗi khi cập nhật giỏ hàng:', error);
+            });
+    }
+
+    function removeFromCart(idMon, tenSize) {
+        const token = document.querySelector('meta[name="_csrf"]').content;
+        const header = document.querySelector('meta[name="_csrf_header"]').content;
+
+        fetch('/api/cart/remove', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                [header]: token
+            },
+            body: JSON.stringify({
+                idMon: idMon,
+                tenSize: tenSize
+            })
+        })
+            .then(response => {
+                if (response.ok) {
+                    loadCartItems(); // Tải lại giỏ hàng sau khi xóa
+                    return;
+                }
+                throw new Error('Không thể xóa sản phẩm khỏi giỏ hàng');
+            })
+            .catch(error => {
+                console.error('Lỗi khi xóa sản phẩm:', error);
+            });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}" th:if="${_csrf}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" th:if="${_csrf}">
+    <title>Trang Quản Trị</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/datmon.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3>Quản Trị Hệ Thống</h3>
+    </div>
+    <div class="sidebar-menu">
+        <ul>
+            <li>
+                <a th:href="@{/admin/}" >
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Bảng điều khiển</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/users}">
+                    <i class="fas fa-users"></i>
+                    <span>Quản lý người dùng</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/products}">
+                    <i class="fas fa-box"></i>
+                    <span>Quản lý sản phẩm</span>
+                </a>
+            </li>
+            <li>
+                <a href="#"  id="orders-menu">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Quản lý đơn hàng</span>
+                </a>
+                <div class="submenu" id="orders-submenu" >
+                    <a href="@{/admin/ordersonline}" >Đơn hàng online</a>
+                    <a href="@{/admin/ordersoffline}" >Đơn hàng offline</a>
+                </div>
+
+            </li>
+            <li>
+                <a th:href="@{/admin/categories}">
+                    <i class="fas fa-tags"></i>
+                    <span>Danh mục</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/reports}">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Báo cáo & Thống kê</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/settings}">
+                    <i class="fas fa-cog"></i>
+                    <span>Cài đặt</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/logout}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+    <div class="menu-section">
+        <h1>Menu</h1>
+
+        <div class="category-tabs">
+            <button class="category-tab" onclick="loadCategory('CÀ PHÊ PHIN')">Cà Phê Phin</button>
+            <button class="category-tab" onclick="loadCategory('FREEZE')">Freeze</button>
+            <button class="category-tab" onclick="loadCategory('TRÀ')">Trà</button>
+            <button class="category-tab" onclick="loadCategory('PHINDI')">Phindi</button>
+            <button class="category-tab" onclick="loadCategory('BÁNH MỲ QUE')">Bánh mì que</button>
+            <button class="category-tab" onclick="loadCategory('BÁNH')">Bánh</button>
+        </div>
+
+        <div class = "menu-grid" id = "menu-grid">
+            <div th:each="entry : ${menuMap}">
+                <div class="menu-css">
+                <div th:each="product : ${entry.value}" class="menu-item">
+                    <img th:src="@{'/images/' + ${product.path}}" alt="ảnh món" class="menu-item-image">
+                    <div class="menu-item-details">
+                        <div class="menu-item-name" th:text="${product.tenMon}">Tên món</div>
+                        <div class="menu-item-price" th:text="${#numbers.formatInteger(product.giaBan, 3, 'POINT') + 'đ'}">Giá</div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-section">
+        <h1 class="cart-header">Cart</h1>
+
+        <div class="customer-info">
+            <input type="text" placeholder="SỐ ĐIỆN THOẠI">
+            <input type="text" placeholder="TÊN KHÁCH HÀNG">
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+        </div>
+        <table class="cart-table">
+            <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Tổng giá</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="cart-item">
+                <td class="item-name">TRÀ ĐÀO SẢ</td>
+                <td class="item-price">35.000 VND</td>
+                <td class="item-quantity">
+                    <button class="quantity-btn">−</button>
+                    <span class="quantity-value">1</span>
+                    <button class="quantity-btn">+</button>
+                </td>
+                <td class="item-total">35.000 VND</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <div class="cart-footer">
+            <div class="total-amount">0 VND</div>
+        </div>
+    </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const ordersMenu = document.getElementById("orders-menu");
+        const ordersSubmenu = document.getElementById("orders-submenu");
+
+        ordersMenu.addEventListener("click", function(event) {
+            // Ngừng hành động mặc định của liên kết
+            event.preventDefault();
+
+            // Toggle trạng thái hiển thị của submenu
+            if (ordersSubmenu.style.display === "block") {
+                ordersSubmenu.style.display = "none";
+            } else {
+                ordersSubmenu.style.display = "block";
+            }
+        });
+    });
+    function loadCategory(loai) {
+        fetch(`/datmon?loai=${encodeURIComponent(loai)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text();
+            })
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const newMenuGrid = doc.querySelector('#menu-grid');
+                const menuGrid = document.getElementById('menu-grid');
+
+                if (newMenuGrid) {
+                    const menuItems = newMenuGrid.querySelectorAll('.menu-item');
+                    if (menuItems.length > 0) {
+                        menuGrid.innerHTML = newMenuGrid.innerHTML;
+                    } else {
+                        menuGrid.innerHTML = '<p>Không có món nào trong danh mục này.</p>';
+                    }
+                } else {
+                    console.error('Không tìm thấy #menu-grid trong HTML trả về');
+                    menuGrid.innerHTML = '<p>Lỗi tải danh sách món.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi tải món:', error);
+                const menuGrid = document.getElementById('menu-grid');
+                menuGrid.innerHTML = '<p>Lỗi tải danh sách món: ' + error.message + '</p>';
+            });
+    }
+
+</script>
+
+</body>
+
+</html>

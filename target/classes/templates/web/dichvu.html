@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/resetcss.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/nguongoc.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css}">
+    <link rel="icon" th:href="@{/image/Anh1.png}">
+    <title>DND COFFEE</title>
+</head>
+<body>
+<div id="header">
+
+
+    <nav class="container">
+
+        <a th:href="@{/index}" id="logo">
+            <img th:src="@{/image/Anh1.png}" alt="DND COFFEE">
+        </a>
+
+        <ul id="main-menu">
+            <li><a th:href="@{/khampha}">KHÁM PHÁ</a>
+                <ul class="sub-menu">
+                    <li><a th:href="@{/khampha}">MENU ĐẶC BIỆT</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/dongcaphedacbiet}">CÀ PHÊ ĐẶC BIỆT</a></li>
+                            <li><a th:href="@{/tinhhoatra}">TINH HOA TRÀ DND</a></li>
+                            <li><a th:href="@{/menunguyenban}">MENU NGUYÊN BẢN</a></li>
+                            <li><a th:href="@{/thucdonmonan}">THỰC ĐƠN MÓN ĂN</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">BẢN ĐỒ QUÁN</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/quancaphe}">QUÁN CÀ PHÊ</a></li>
+            <li><a th:href="@{/thucdon}">THỰC ĐƠN</a>
+                <ul class="sub-menu">
+                    <li><a th:href="@{/caphe}">CÀ PHÊ</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/caphephin}">Cà Phê Phin</a></li>
+                            <li><a th:href="@{/phindi}">PhinDi</a></li>
+                            <li><a th:href="@{/caphekhac}">Khác</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/web/freeze}">FREEZE</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/freezetraxanh}">Freeze Trà Xanh</a></li>
+                            <li><a th:href="@{/freezecookies}">Freeze Cookies & Cream</a></li>
+                            <li><a th:href="@{/freezesocola}">Freeze Sô-cô-la</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/tra}">TRÀ</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/trasenvang}">Trà Sen Vàng Mới</a></li>
+                            <li><a th:href="@{/trathachdao}">Trà Thạch Đào</a></li>
+                            <li><a th:href="@{/trathanhdao}">Trà Thanh Đào</a></li>
+                            <li><a th:href="@{/trathanhvai}">Trà Thanh Vải</a></li>
+                            <li><a th:href="@{/traoihong}">Trà Ổi Hồng</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/khac}">KHÁC</a>
+                        <ul class="sub-menu">
+                            <li><a th:href="@{/banhngot}">Bánh ngọt</a></li>
+                            <li><a th:href="@{/merchandise}">Merchandise</a></li>
+                            <li><a th:href="@{/caphedonggoi}">Cà phê đóng gói</a></li>
+                            <li><a th:href="@{/thucdongiaohang}">Thực đơn giao hàng</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a th:href="@{/tintuc}">TIN TỨC</a></li>
+            <li><a th:href="@{/vechungtoi}">VỀ CHÚNG TÔI</a>
+                <ul class="sub-menu">
+                    <li><a th:href="@{/nguongoc}">NGUỒN GỐC</a></li>
+                    <li><a th:href="@{/dichvu}">DỊCH VỤ</a></li>
+                    <li><a th:href="@{/nghenghiep}">NGHỀ NGHIỆP</a></li>
+                </ul>
+            </li>
+            <li><a th:href="@{/datdouong}">MUA NGAY</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="sanpham-container">
+    <div class="sanpham-content-left">
+        <h1>DỊCH VỤ</h1>
+        <h2>DỊCH VỤ NÀY LÀ CỦA CHÚNG MÌNH</h2>
+
+        <p>Chúng mình có thể làm gì để hoàn thiện DND Coffee®?</p>
+        <p>Highlands Coffee® là không gian của chúng mình nên mọi thứ ở đây đều vì sự thoải mái của chúng mình.</p>
+        <p>Đừng giữ trong lòng, hãy chia sẻ với chúng mình điều bạn mong muốn để cùng nhau giúp Highlands Coffee® của chúng mình trở nên tuyệt vời hơn.</p>
+        <p>Đừng ngại chia sẻ ý kiến của bạn tại:</p>
+        <p>Facebook: <a>https://www.facebook.com/dndcoffeevietnam/</a> </p>
+        <p>Hoặc bạn có thể gửi email cho chúng mình đến địa chỉ: <a href="mailto:nguyenduonghb940@gmail.com">customerservice@dndcoffee.com.vn</a>, chúng mình sẽ phản hồi trong thời gian sớm nhất có thể.</p>
+        <p class="sanpham-bold">DND Coffee® Là Của Chúng Mình.</p>
+    </div>
+
+    <div class="sanpham-content-right">
+        <div class="sanpham-image-container">
+            <a th:href="@{/nghenghiep}">
+                <img src="../image/AnhNgang3.png" alt="Nghề nghiệp tại DND Coffee">
+                <div class="sanpham-overlay-text">NGHỀ NGHIỆP</div>
+            </a>
+        </div>
+        <div class="sanpham-image-container">
+            <a th:href="@{/nguongoc}">
+                <img th:src="@{/image/NenNgang1.png}" alt="Nghề nghiệp tại DND Coffee">
+                <div class="sanpham-overlay-text">NGUỒN GỐC</div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="foot">
+    <footer class="dnd-footer">
+        <div class="footer-container">
+            <div class="social-icons">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p class="copyright">© 2018 DND Coffee. All rights reserved</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link"><i class="fas fa-envelope"></i> Đăng ký nhận bản tin</a>
+                <a href="mailto:nguyenduonghb940@gmail.com" class="footer-link"><i class="fas fa-envelope"></i> nguyenduonghb940@gmail.com</a>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script>
+    $(document).ready(function(){
+        // Tìm tất cả các li có sub-menu và thêm vào nó class has-child
+        $('.sub-menu').parent('li').addClass('has-child');
+    });
+</script>
+
+
+</body>
+
+</html>

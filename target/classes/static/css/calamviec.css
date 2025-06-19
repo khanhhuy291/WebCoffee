@@ -1,0 +1,431 @@
+/* calamviec.css - Styles for the Work Shift Management Page */
+
+/* Variables matching the client.css for consistency */
+:root {
+    --primary: #2563eb;
+    --secondary: #64748b;
+    --success: #10b981;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --info: #0ea5e9;
+    --light: #f8fafc;
+    --dark: #0f172a;
+    --border: #e2e8f0;
+    --bg-light: #f1f5f9;
+    --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --text-color: #334155;
+    --light-gray: #f8fafc;
+    --hover-color: #e2e8f0;
+    --border-color: #cbd5e1;
+}
+
+/* Work Shift Management specific styles */
+
+
+
+/* Shift card style */
+.shift-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    transition: all 0.3s;
+    border-left: 4px solid var(--primary);
+}
+
+.shift-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.shift-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.shift-title {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--dark);
+}
+
+.shift-time {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 14px;
+}
+
+.shift-time-item {
+    padding: 4px 10px;
+    background-color: var(--bg-light);
+    border-radius: 6px;
+    color: var(--secondary);
+}
+
+.shift-time-item i {
+    margin-right: 5px;
+    color: var(--primary);
+}
+
+/* Table modifications for shifts */
+.shift-table th {
+    font-size: 14px;
+    color: var(--secondary);
+    border-bottom: 2px solid var(--border);
+}
+
+.shift-table td {
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+.shift-id {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.shift-time-cell {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.shift-time-cell i {
+    color: var(--secondary);
+    font-size: 14px;
+}
+
+/* Action buttons with tooltips */
+.action-btn {
+    position: relative;
+}
+
+.action-btn:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--dark);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+.action-btn:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--dark) transparent transparent transparent;
+    z-index: 10;
+}
+
+/* Modal enhancements */
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-body {
+    padding-bottom: 20px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border);
+}
+
+.modal-footer button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.modal-footer .cancel {
+    background-color: white;
+    color: var(--secondary);
+    border: 1px solid var(--border);
+}
+
+.modal-footer .cancel:hover {
+    background-color: var(--bg-light);
+}
+
+.modal-footer .edit {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+}
+
+.modal-footer .edit:hover {
+    background-color: #1d4ed8;
+}
+
+/* Time input styling */
+input[type="time"] {
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+input[type="time"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Modal form adjustments */
+.form-row {
+    margin-bottom: 20px;
+}
+
+/* Status indicator for shifts */
+.shift-status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status-active {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.status-upcoming {
+    background-color: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+}
+
+.status-past {
+    background-color: rgba(100, 116, 139, 0.1);
+    color: var(--secondary);
+}
+
+/* Empty state styling */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    color: var(--secondary);
+    opacity: 0.5;
+    margin-bottom: 20px;
+}
+
+.empty-state-text {
+    font-size: 16px;
+    color: var(--secondary);
+    margin-bottom: 20px;
+}
+
+.empty-state-action {
+    background-color: var(--primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.empty-state-action:hover {
+    background-color: #1d4ed8;
+}
+
+/* View shift details styling */
+#NguyenLieuDetails {
+    padding: 15px;
+    background-color: var(--bg-light);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+}
+
+#NguyenLieuDetails h3 {
+    color: var(--primary);
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+}
+
+#NguyenLieuDetails p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+#NguyenLieuDetails strong {
+    color: var(--dark);
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .shift-time {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .action-btn {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Custom search box for shifts */
+.shift-search {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+.shift-search input {
+    width: 100%;
+    padding: 10px 15px 10px 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.shift-search input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.shift-search i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary);
+}
+
+/* Statistics widgets for shifts */
+.shift-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.shift-stat-item {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.shift-stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.shift-stat-info {
+    flex: 1;
+}
+
+.shift-stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.shift-stat-label {
+    font-size: 12px;
+    color: var(--secondary);
+}
+
+/* Calendar view for shifts */
+.calendar-view {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.calendar-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.calendar-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.calendar-btn {
+    background-color: var(--bg-light);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.calendar-btn:hover {
+    background-color: var(--border);
+}
+
+.calendar-btn.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}

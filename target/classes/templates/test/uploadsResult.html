@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload Result</title>
+    <style>
+        .image-container {
+            margin-top: 20px;
+            max-width: 500px;
+        }
+        .image-preview {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<h2>Upload Result</h2>
+<p th:text="${message}"></p>
+
+<!-- Hiển thị ảnh nếu file được upload là ảnh -->
+<div class="image-container" th:if="${isImage == true}">
+    <h3 th:text="'Xem trước: ' + ${filePath}"></h3>
+    <img class="image-preview" th:src="${filePath}" th:alt="${fileName}" />
+</div>
+
+<!-- Link download nếu không phải ảnh -->
+<div th:if="${isImage != true and fileName != null}">
+    <a th:href="${filePath}" th:text="'Download ' + ${fileName}" target="_blank"></a>
+</div>
+
+<p><a href="/upload">Upload thêm file</a></p>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}" th:if="${_csrf}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" th:if="${_csrf}">
+    <title>Quản lý Hóa Đơn</title>
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/order-management.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h3>Quản Trị Hệ Thống</h3>
+    </div>
+    <div class="sidebar-menu">
+        <ul>
+            <li>
+                <a th:href="@{/admin/}">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Bảng điều khiển</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/users}">
+                    <i class="fas fa-users"></i>
+                    <span>Quản lý người dùng</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/products}">
+                    <i class="fas fa-box"></i>
+                    <span>Quản lý sản phẩm</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="menu-item active" id="orders-menu">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Quản lý đơn hàng</span>
+                </a>
+                <div class="submenu" id="orders-submenu" style="display: block;">
+                    <a th:href="@{/admin/ordersonline}" class="menu-item active">Đơn hàng online</a>
+                    <a th:href="@{/admin/datmon}" class="menu-item">Đơn hàng offline</a>
+                </div>
+            </li>
+            <li>
+                <a th:href="@{/admin/categories}">
+                    <i class="fas fa-tags"></i>
+                    <span>Danh mục</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/reports}">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Báo cáo & Thống kê</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/admin/settings}">
+                    <i class="fas fa-cog"></i>
+                    <span>Cài đặt</span>
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/logout}">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Notification message -->
+    <div id="notification" class="notification" style="display: none;"></div>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>Quản lý Hóa Đơn</h1>
+        <div class="action-buttons">
+            <button id="refreshBtn" class="action-btn refresh">
+                <i class="fas fa-sync-alt"></i> Làm mới
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter section -->
+    <div class="filters">
+        <div class="filter-group">
+            <label for="statusFilter">Trạng thái:</label>
+            <select id="statusFilter">
+                <option value="">Tất cả trạng thái</option>
+                <option value="Đang đợi xác nhận">Đang đợi xác nhận</option>
+                <option value="Đã xác nhận">Đã xác nhận</option>
+                <option value="Đã giao hàng">Đã giao hàng</option>
+                <option value="Đã hủy">Đã hủy</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="dateFilter">Ngày:</label>
+            <input type="date" id="dateFilter">
+        </div>
+        <div class="filter-group search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Tìm kiếm...">
+        </div>
+    </div>
+
+    <!-- Orders table -->
+    <div class="orders-table-container">
+        <table class="orders-table" id="ordersTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Ngày lập hóa đơn</th>
+                <th>Giảm giá</th>
+                <th>Phương thức thanh toán</th>
+                <th>Trạng thái</th>
+                <th>Số sản phẩm</th>
+                <th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody id="ordersList">
+            <!-- Orders will be loaded here dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Empty state -->
+    <div id="emptyState" style="display: none; text-align: center; margin-top: 50px;">
+        <i class="fas fa-receipt" style="font-size: 48px; color: #ddd;"></i>
+        <h3 style="margin-top: 15px; color: #999;">Không tìm thấy hóa đơn nào</h3>
+        <p style="color: #999;">Vui lòng thử thay đổi bộ lọc hoặc làm mới trang</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+        <!-- Pagination will be generated dynamically -->
+    </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div id="orderDetailModal" class="modal">
+    <div class="modal-content order-detail">
+        <span class="close-btn">&times;</span>
+        <h2>Chi tiết hóa đơn <span id="orderIdDetail"></span></h2>
+
+        <div class="order-info">
+            <div class="order-info-group">
+                <label>Ngày lập:</label>
+                <span id="orderDate"></span>
+            </div>
+            <div class="order-info-group">
+                <label>Phương thức thanh toán:</label>
+                <span id="orderPaymentMethod"></span>
+            </div>
+            <div class="order-info-group">
+                <label>Trạng thái:</label>
+                <div id="orderStatusContainer">
+                    <span id="orderStatus" class="status-badge"></span>
+                    <div class="status-actions">
+                        <button id="btnPendingConfirmation" class="status-btn pending-confirmation">Đang đợi xác nhận</button>
+                        <button id="btnConfirmed" class="status-btn confirmed">Đã xác nhận</button>
+                        <button id="btnDelivered" class="status-btn delivered">Đã giao hàng</button>
+                        <button id="btnCancel" class="status-btn cancelled">Hủy đơn</button>
+                    </div>
+                </div>
+            </div>
+            <div class="order-info-group">
+                <label>Giảm giá:</label>
+                <span id="orderDiscount"></span>
+            </div>
+        </div>
+
+        <h3>Danh sách sản phẩm</h3>
+        <table class="products-table">
+            <thead>
+            <tr>
+                <th>Tên sản phẩm</th>
+                <th>Loại</th>
+                <th>Giá bán</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+            </tr>
+            </thead>
+            <tbody id="productsList">
+            <!-- Products will be loaded here dynamically -->
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4" class="text-right"><strong>Tổng tiền:</strong></td>
+                <td id="orderTotal" class="text-right"></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-right"><strong>Giảm giá:</strong></td>
+                <td id="totalDiscount" class="text-right"></td>
+            </tr>
+            <tr>
+                <td colspan="4" class="text-right"><strong>Thành tiền:</strong></td>
+                <td id="finalTotal" class="text-right"></td>
+            </tr>
+            </tfoot>
+        </table>
+
+        <div class="form-actions">
+            <button type="button" class="btn" id="closeOrderDetailBtn">Đóng</button>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div id="confirmModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <h2>Xác nhận thay đổi</h2>
+        <p id="confirmMessage">Bạn có chắc chắn muốn thay đổi trạng thái đơn hàng này?</p>
+        <div class="form-actions">
+            <button class="btn" id="cancelConfirmBtn">Huỷ</button>
+            <button class="btn btn-primary" id="confirmActionBtn">Xác nhận</button>
+        </div>
+    </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="toast">
+    <span id="toastMessage" class="toast-message"></span>
+    <button id="close-toast">&times;</button>
+</div>
+
+<script th:src="@{/js/order-management.js}"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+/* CSS dành riêng cho lịch làm việc */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 48px;
+    color: #bfbfbf;
+    margin-bottom: 15px;
+}
+
+.empty-state h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.empty-state p {
+    color: #888;
+    max-width: 400px;
+}
+
+/* CSS cho modal */
+.notification {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    animation: slide-in 0.3s ease-out;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification.success {
+    background-color: #e7f7ed;
+    border-left: 4px solid #28a745;
+}
+
+.notification.error {
+    background-color: #ffebee;
+    border-left: 4px solid #dc3545;
+}
+
+.notification.info {
+    background-color: #e7f3fe;
+    border-left: 4px solid #007bff;
+}
+
+.notification-icon {
+    margin-right: 15px;
+    font-size: 18px;
+}
+
+.notification.success .notification-icon {
+    color: #28a745;
+}
+
+.notification.error .notification-icon {
+    color: #dc3545;
+}
+
+.notification.info .notification-icon {
+    color: #007bff;
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-close {
+    cursor: pointer;
+    padding: 5px;
+    font-size: 14px;
+    color: #777;
+}
+
+.notification-close:hover {
+    color: #333;
+}
+
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 350px;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

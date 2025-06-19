@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/resetcss.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/css/datdouong.css}">
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="icon" th:href="@{/image/Anh1.png}">
+    <title>DND COFFEE</title>
+    <!-- Slick Slider CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+</head>
+<body>
+<div class="top-bar">
+    GIAO HÀNG TOÀN QUỐC
+</div>
+
+<div class="header">
+    <div class="menu-button" id="menu-toggle">
+        <div class="menu-icon">☰</div>
+        <div class="menu-text">MENU</div>
+    </div>
+    <a th:href = "@{/index}">
+        <img th:src="@{/image/Anh1.png}" alt="DND Coffee" class="logo">
+    </a>
+    <div class="search-bar">
+        <div class="search-form">
+            <input type="text" class="search-input" placeholder="Tìm sản phẩm...">
+            <button class="search-button">
+                <span class="search-icon">⌕</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="user-actions">
+        <a th:if="${tenNguoiDung == null}" th:href="@{/login}" style="text-decoration: none;">
+            <div class="account">
+                <div class="user-icon">👤</div>
+                <div>Tài khoản</div>
+            </div>
+        </a>
+
+        <div th:if="${tenNguoiDung != null}" class="dropdown">
+            <div class="account">
+                <div class="user-icon">👤</div>
+                <div th:text="${tenNguoiDung}">Tên người dùng</div>
+            </div>
+            <div class="dropdown-content">
+                <a th:href="@{/ho-so}">Hồ sơ cá nhân</a>
+                <a th:href="@{/don-mua}">Đơn mua</a>
+                <a th:href="@{/logout}">Đăng xuất</a>
+            </div>
+        </div>
+        <div class="cart" id = "menu-cart">
+            <div class="cart-icon">🛒</div>
+            <div class="cart-count">0</div>
+            <div>Giỏ hàng</div>
+        </div>
+    </div>
+    <nav class="sidebar" id="sidebar">
+        <div class="close-btn" id="close-menu">✖</div>
+        <ul class="menu">
+
+            <li class="has-submenu">
+                <a href="#">TRANG CHỦ</a>
+                <ul class="submenu">
+                    <li><a href="#">Trang chủ</a></li>
+                    <li><a href="../webbuy/xemtatca.html">FLASH DEAL</a></li>
+                    <li><a href="#">TẾT 2025</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="../webbuy/xemtatca.html">FLASH DEAL</a>
+                <ul class="submenu">
+                    <li><a href="../webbuy/xemtatca.html">FLASH DEAL</a></li>
+                </ul>
+            </li>
+            <li><a href="#">MUA SỈ</a></li>
+            <li class="has-submenu">
+                <a href="#">GIỚI THIỆU</a>
+                <ul class="submenu">
+                    <li><a href="#">Cà Phê Rang Xay</a></li>
+                    <li><a href="#">Giới thiệu</a></li>
+                    <li><a href="#">Giới thiệu Sản phẩm DND Coffee®</a></li>
+                </ul>
+            </li>
+            <li><a href="#">TIN TỨC</a></li>
+        </ul>
+    </nav>
+
+    <nav class="cartbar" id="cartbar">
+        <div class="close-btn" id="close-cart">✖</div>
+        <div class="cart-header">
+            GIỎ HÀNG
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Các sản phẩm trong giỏ hàng sẽ được thêm vào đây qua JavaScript -->
+
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <div>Tổng tiền:</div>
+                <div class="cart-total-price">7.758.000đ</div>
+            </div>
+            <a th:href="@{/thanhtoan}">
+                <button class="checkout-btn">Thanh toán</button>
+            </a>
+        </div>
+    </nav>
+</div>
+
+
+
+<footer class="footer-container">
+    <div class="footer-content">
+        <div class="footer-column company-info">
+            <h3 class="footer-heading">CÔNG TY TNHH MTV THÁI KIÊN</h3>
+            <p class="company-description">Công ty phân phối hợp lệ sản phẩm cà phê thương hiệu Highlands Coffee®.</p>
+            <div class="certification">
+                <img th:src="@{/image/certification-badge.png}" alt="Bộ Công Thương certification" class="certification-image">
+            </div>
+        </div>
+
+        <div class="footer-column contact-info">
+            <h3 class="footer-heading">THÔNG TIN</h3>
+            <p class="address">Trụ sở văn phòng: 127 Nguyễn Cơ Thạch, An Lợi Đông, Q.2, Tp. Hồ Chí Minh</p>
+            <p class="phone">Điện thoại: 0917561212</p>
+            <p class="email">Email: cpg.customerservice@vtijs.com</p>
+        </div>
+
+        <div class="footer-column customer-support">
+            <h3 class="footer-heading">HỖ TRỢ KHÁCH HÀNG</h3>
+            <ul class="support-links">
+                <li><a href="#">• Tìm kiếm</a></li>
+                <li><a href="#">• Chính sách đổi trả</a></li>
+                <li><a href="#">• Chính sách bảo mật</a></li>
+                <li><a href="#">• Chính sách giao hàng</a></li>
+                <li><a href="#">• Liên hệ</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const menuToggle = document.getElementById("menu-toggle");
+        const sidebar = document.getElementById("sidebar");
+        const closeMenu = document.getElementById("close-menu");
+
+        menuToggle.addEventListener("click", function () {
+            sidebar.classList.add("active");
+        });
+
+        closeMenu.addEventListener("click", function () {
+            sidebar.classList.remove("active");
+        });
+
+        document.querySelectorAll(".has-submenu > a").forEach(item => {
+            item.addEventListener("click", function (e) {
+                e.preventDefault();
+                this.parentElement.classList.toggle("active");
+            });
+        });
+    });
+</script>
+<script th:src="@{js/muangay.js}"></script>
+</body>
+
+</html>

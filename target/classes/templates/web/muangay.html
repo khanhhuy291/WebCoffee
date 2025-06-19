@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/resetcss.css}">
+    <link rel="stylesheet" th:href="@{/css/muangay.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css}">
+    <link rel="icon" th:href="@{/image/Anh1.png}">
+    <title>DND COFFEE</title>
+</head>
+<body>
+    <div class="top-bar">
+        GIAO HÀNG TOÀN QUỐC
+    </div>
+
+    <div class="header">
+        <div class="menu-button" id="menu-toggle">
+            <div class="menu-icon">☰</div>
+            <div class="menu-text">MENU</div>
+        </div>
+        <a th:href = "@{/index}">
+        <img th:src="@{/image/Anh1.png}" alt="DND Coffee" class="logo">
+        </a>
+        <div class="search-bar">
+            <div class="search-form">
+                <input type="text" class="search-input" placeholder="Tìm sản phẩm...">
+                <button class="search-button">
+                    <span class="search-icon">⌕</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="user-actions">
+            <a th:if="${tenNguoiDung == null}" th:href="@{/webbuy/dangnhap.html}" style="text-decoration: none;">
+                <div class="account">
+                    <div class="user-icon">👤</div>
+                    <div>Tài khoản</div>
+                </div>
+            </a>
+
+            <div th:if="${tenNguoiDung != null}" class="dropdown">
+                <div class="account">
+                    <div class="user-icon">👤</div>
+                    <div th:text="${tenNguoiDung}">Tên người dùng</div>
+                </div>
+                <div class="dropdown-content">
+                    <a th:href="@{/ho-so}">Hồ sơ cá nhân</a>
+                    <a th:href="@{/don-mua}">Đơn mua</a>
+                    <a th:href="@{/logout}">Đăng xuất</a>
+                </div>
+            </div>
+
+            <div class="cart" id = "menu-cart">
+                <div class="cart-icon">🛒</div>
+                <div class="cart-count">0</div>
+                <div>Giỏ hàng</div>
+            </div>
+        </div>
+        <nav class="sidebar" id="sidebar">
+            <div class="close-btn" id="close-menu">✖</div>
+            <ul class="menu">
+
+                <li class="has-submenu">
+                    <a href="#">TRANG CHỦ</a>
+                    <ul class="submenu">
+                        <li><a href="#">Trang chủ</a></li>
+                        <li><a href="../webbuy/xemtatca.html">FLASH DEAL</a></li>
+                        <li><a href="#">TẾT 2025</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="../webbuy/xemtatca.html">FLASH DEAL</a>
+                    <ul class="submenu">
+                        <li><a href="../webbuy/xemtatca.html">FLASH DEAL</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">MUA SỈ</a></li>
+                <li class="has-submenu">
+                    <a href="#">GIỚI THIỆU</a>
+                    <ul class="submenu">
+                        <li><a href="#">Cà Phê Rang Xay</a></li>
+                        <li><a href="#">Giới thiệu</a></li>
+                        <li><a href="#">Giới thiệu Sản phẩm DND Coffee®</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">TIN TỨC</a></li>
+            </ul>
+        </nav>
+
+        <nav class="cartbar" id="cartbar">
+          <div class="close-btn" id="close-cart">✖</div>
+          <div class="cart-header">
+              GIỎ HÀNG
+          </div>
+          <div class="cart-items" id="cart-items">
+              <!-- Các sản phẩm trong giỏ hàng sẽ được thêm vào đây qua JavaScript -->
+              <!-- Ví dụ về một sản phẩm: -->
+              <div class="cart-item">
+                  <img src="../image/TruyenThong1kg.png" alt="Sản phẩm cà phê">
+                  <div class="cart-item-info">
+                      <div class="cart-item-title">(Giảm 10%) Combo 2 Cà Phê Rang Xay Truyền Thống Highlands Coffee 1kg</div>
+                      <div class="cart-item-price">775.800đ</div>
+                      <div class="cart-item-quantity">
+                          <div class="quantity-btn decrease">-</div>
+                          <input type="number" min="1" class="quantity-input" value="10">
+                          <div class="quantity-btn increase">+</div>
+                      </div>
+                      <div class="cart-item-remove">Bỏ sản phẩm</div>
+                  </div>
+              </div>
+          </div>
+          <div class="cart-footer">
+              <div class="cart-total">
+                  <div>Tổng tiền:</div>
+                  <div class="cart-total-price">7.758.000đ</div>
+              </div>
+              <button class="checkout-btn">Thanh toán</button>
+          </div>
+      </nav>
+    </div>
+    
+    
+
+    <div class="nav-bar">
+        <a href="#" class="nav-item home-icon">🏠</a>
+        <a href="#" class="nav-item active">TRANG CHỦ</a>
+        <a href="#" class="nav-item">FLASH DEAL</a>
+        <a href="#" class="nav-item">MUA SỈ</a>
+        <a href="#" class="nav-item">GIỚI THIỆU</a>
+        <a href="#" class="nav-item">TIN TỨC</a>
+    </div>
+    
+    <div class="category-bar">
+        <a href="#" class="category-item">Cà Phê Rang Xay</a>
+        <a href="#" class="category-item">Cà Phê Hạt</a>
+        <a href="#" class="category-item">Cà Phê Uống Liền</a>
+        <a href="#" class="category-item">Cà Phê Hòa Tan</a>
+    </div>
+    
+    <div class="banner">
+        <img src="../image/Anhsale.png" alt="Deal đặc quyền tri ân khách hàng">
+    </div>
+    
+    <div class="features">
+        <div class="feature">
+            <img src="../image/policy_1.webp" alt="Giao hàng">
+            <div class="feature-text">Giao hàng</div>
+        </div>
+        
+        <div class="feature">
+            <img src="../image/policy_2.webp" alt="Độc quyền">
+            <div class="feature-text">ĐỘC QUYỀN</div>
+        </div>
+        
+        <div class="feature">
+            <img src="../image/policy_3.webp" alt="Bán chạy">
+            <div class="feature-text">Bán chạy</div>
+        </div>
+        
+        <div class="feature">
+            <img src="../image/policy_4.webp" alt="Cửa hàng">
+            <div class="feature-text">Cửa hàng</div>
+        </div>
+        
+        <div class="feature">
+            <img src="../image/policy_5.webp" alt="Cách pha">
+            <div class="feature-text">Cách pha</div>
+        </div>
+        
+        <div class="feature">
+            <img src="../image/policy_6.webp" alt="Liên hệ">
+            <div class="feature-text">Liên hệ</div>
+        </div>
+    </div>
+
+
+
+    <!-- Flash Sale Section -->
+<div class="flash-sale-container">
+    <div class="flash-sale-header">
+      <div class="flash-sale-title">
+        <span class="flash-icon">⚡</span>
+        <h2>FLASH SALE - CHÍNH HÃNG 100%</h2>
+        <span class="divider">|</span>
+      </div>
+      <button class="view-all-btn">Xem tất cả</button>
+    </div>
+    
+    <div class="product-slider">
+      <button class="slider-arrow prev-arrow">&#10094;</button>
+      
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="discount-badge">7%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong1kg.png" alt="Cà phê Bột Truyền Thống">
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">DEAL TRI ÂN - MUA 1 TẶNG 1 - Cà phê Bột Truyền Thống</h3>
+          <div class="product-price">
+            <span class="current-price">399.000đ</span>
+            <span class="original-price">431.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(1)</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="discount-badge">10%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong1kg.png" alt="Combo 2 Cà Phê">
+          
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">(Giảm 10%) Combo 2 Cà Phê Rang Xay Truyền Thống</h3>
+          <div class="product-price">
+            <span class="current-price">775.800đ</span>
+            <span class="original-price">862.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="discount-badge">16%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong1kg.png" alt="COMBO 2 Gói Cà Phê">
+          
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">[Nhập mã M20] COMBO 2 Gói Cà Phê Rang Xay Moka</h3>
+          <div class="product-price">
+            <span class="current-price">231.840đ</span>
+            <span class="original-price">276.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="discount-badge">12%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong1kg.png" alt="Combo 3 gói cà phê">
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Trọn vị Combo 3 gói cà phê rang xay DND Coffee</h3>
+          <div class="product-price">
+            <span class="current-price">319.440đ</span>
+            <span class="original-price">363.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 5 -->
+      <div class="product-card">
+        <div class="discount-badge">10%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong1kg.png" alt="Cà Phê Bột Truyền Thống">
+        
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Cà Phê Bột Truyền Thống DND Coffee 1kg - 100%</h3>
+          <div class="product-price">
+            <span class="current-price">389.000đ</span>
+            <span class="original-price">431.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(1)</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <button class="slider-arrow next-arrow">&#10095;</button>
+    </div>
+  </div>
+  
+
+  
+<!-- Flash Sale Section 2-->
+<div class="flash-sale-container">
+    <div class="category-header-container">
+        <div class="category-header">
+          <h1 class="category-title">Cà phê rang xay</h1>
+        </div>
+    </div>
+    <div class="product-slider">
+      <button class="slider-arrow prev-arrow">&#10094;</button>
+      
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="discount-badge">7%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong200gr.png" alt="Cà phê Bột Truyền Thống">
+          
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">DEAL TRI ÂN - MUA 1 TẶNG 1 - Cà phê Bột Truyền Thống</h3>
+          <div class="product-price">
+            <span class="current-price">399.000đ</span>
+            <span class="original-price">431.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(1)</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="discount-badge">10%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong200gr.png" alt="Combo 2 Cà Phê">
+          
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">(Giảm 10%) Combo 2 Cà Phê Rang Xay Truyền Thống</h3>
+          <div class="product-price">
+            <span class="current-price">775.800đ</span>
+            <span class="original-price">862.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="discount-badge">16%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong200gr.png" alt="COMBO 2 Gói Cà Phê">
+          
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">[Nhập mã M20] COMBO 2 Gói Cà Phê Rang Xay Moka</h3>
+          <div class="product-price">
+            <span class="current-price">231.840đ</span>
+            <span class="original-price">276.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="discount-badge">12%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong200gr.png" alt="Combo 3 gói cà phê">
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Trọn vị Combo 3 gói cà phê rang xay DND Coffee</h3>
+          <div class="product-price">
+            <span class="current-price">319.440đ</span>
+            <span class="original-price">363.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 5 -->
+      <div class="product-card">
+        <div class="discount-badge">10%</div>
+        <div class="product-image">
+          <img src="../image/TruyenThong200gr.png" alt="Cà Phê Bột Truyền Thống">
+          
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Cà Phê Bột Truyền Thống DND Coffee 1kg - 100%</h3>
+          <div class="product-price">
+            <span class="current-price">389.000đ</span>
+            <span class="original-price">431.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(1)</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <button class="slider-arrow next-arrow">&#10095;</button>
+      
+    </div>
+  </div>
+  <div class="button-container">
+    <a href="#" class="view-product-button">
+      Xem sản phẩm <span class="highlighted-text">cà phê rang xay</span>
+    </a>
+  </div>
+<!-- Flash Sale Section 3-->
+<div class="flash-sale-container">
+    <div class="category-header-container">
+        <div class="category-header">
+          <h1 class="category-title">Cà phê uống liền</h1>
+        </div>
+    </div>
+    <div class="product-slider">
+      <button class="slider-arrow prev-arrow">&#10094;</button>
+      
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="discount-badge">7%</div>
+        <div class="product-image">
+          <img src="../image/LonCaPheSua.png" alt="Cà phê Bột Truyền Thống">
+          
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">DEAL TRI ÂN - MUA 1 TẶNG 1 - Cà phê Bột Truyền Thống</h3>
+          <div class="product-price">
+            <span class="current-price">399.000đ</span>
+            <span class="original-price">431.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(1)</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="discount-badge">10%</div>
+        <div class="product-image">
+          <img src="../image/CaPheDenLon.png" alt="Combo 2 Cà Phê">
+          
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">(Giảm 10%) Combo 2 Cà Phê Rang Xay Truyền Thống</h3>
+          <div class="product-price">
+            <span class="current-price">775.800đ</span>
+            <span class="original-price">862.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="discount-badge">16%</div>
+        <div class="product-image">
+          <img src="../image/LonCaPheSua.png" alt="COMBO 2 Gói Cà Phê">
+         
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">[Nhập mã M20] COMBO 2 Gói Cà Phê Rang Xay Moka</h3>
+          <div class="product-price">
+            <span class="current-price">231.840đ</span>
+            <span class="original-price">276.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="discount-badge">12%</div>
+        <div class="product-image">
+          <img src="../image/CaPheDenLon.png" alt="Combo 3 gói cà phê">
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Trọn vị Combo 3 gói cà phê rang xay DND Coffee</h3>
+          <div class="product-price">
+            <span class="current-price">319.440đ</span>
+            <span class="original-price">363.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 5 -->
+      <div class="product-card">
+        <div class="discount-badge">10%</div>
+        <div class="product-image">
+          <img src="../image/LonCaPheSua.png" alt="Cà Phê Bột Truyền Thống">
+        
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Cà Phê Bột Truyền Thống DND Coffee 1kg - 100%</h3>
+          <div class="product-price">
+            <span class="current-price">389.000đ</span>
+            <span class="original-price">431.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(1)</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <button class="slider-arrow next-arrow">&#10095;</button>
+    </div>
+  </div>
+  <div class="button-container">
+    <a href="#" class="view-product-button">
+      Xem sản phẩm <span class="highlighted-text">cà phê uống liền</span>
+    </a>
+  </div>
+
+<!-- Flash Sale Section 4-->
+<div class="flash-sale-container">
+    <div class="category-header-container">
+        <div class="category-header">
+          <h1 class="category-title">Cà phê hòa tan</h1>
+        </div>
+    </div>
+    <div class="product-slider">
+      <button class="slider-arrow prev-arrow">&#10094;</button>
+      
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="discount-badge">7%</div>
+        <div class="product-image">
+          <img src="../image/Caphehoatan.webp" alt="Cà phê Bột Truyền Thống">
+          
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">DEAL TRI ÂN - MUA 1 TẶNG 1 - Cà phê Bột Truyền Thống</h3>
+          <div class="product-price">
+            <span class="current-price">399.000đ</span>
+            <span class="original-price">431.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(1)</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="discount-badge">10%</div>
+        <div class="product-image">
+          <img src="../image/Caphehoatan.webp" alt="Combo 2 Cà Phê">
+   
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">(Giảm 10%) Combo 2 Cà Phê Rang Xay Truyền Thống</h3>
+          <div class="product-price">
+            <span class="current-price">775.800đ</span>
+            <span class="original-price">862.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="discount-badge">16%</div>
+        <div class="product-image">
+          <img src="../image/Caphehoatan.webp" alt="COMBO 2 Gói Cà Phê">
+
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">[Nhập mã M20] COMBO 2 Gói Cà Phê Rang Xay Moka</h3>
+          <div class="product-price">
+            <span class="current-price">231.840đ</span>
+            <span class="original-price">276.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="discount-badge">12%</div>
+        <div class="product-image">
+          <img src="../image/Caphehoatan.webp" alt="Combo 3 gói cà phê">
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Trọn vị Combo 3 gói cà phê rang xay DND Coffee</h3>
+          <div class="product-price">
+            <span class="current-price">319.440đ</span>
+            <span class="original-price">363.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">☆☆☆☆☆</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product 5 -->
+      <div class="product-card">
+        <div class="discount-badge">10%</div>
+        <div class="product-image">
+          <img src="../image/Caphehoatan.webp" alt="Cà Phê Bột Truyền Thống">
+    
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">Cà Phê Bột Truyền Thống DND Coffee 1kg - 100%</h3>
+          <div class="product-price">
+            <span class="current-price">389.000đ</span>
+            <span class="original-price">431.000đ</span>
+          </div>
+          <div class="product-rating">
+            <span class="stars">★★★★★</span>
+            <span class="review-count">(1)</span>
+            <button class="cart-btn">🛒</button>
+          </div>
+          <button class="buy-btn">
+            <span class="cart-icon">🛒</span>
+            Chọn mua
+          </button>
+        </div>
+      </div>
+      
+      <button class="slider-arrow next-arrow">&#10095;</button>
+    </div>
+  </div>
+  <div class="button-container">
+    <a href="#" class="view-product-button">
+      Xem sản phẩm <span class="highlighted-text">cà phê hòa tan</span>
+    </a>
+  </div>
+
+<!-- Footer Section -->
+<footer class="footer-container">
+    <div class="footer-content">
+      <!-- Company Info -->
+      <div class="footer-column company-info">
+        <h3 class="footer-heading">CÔNG TY TNHH DuongDai</h3>
+        <p class="company-description">
+          Công ty phân phối hợp lệ sản phẩm cà phê thương hiệu DND Coffee®.
+        </p>
+        <div class="certification">
+          <img src="../image/logo_bct.webp" alt="Bộ Công Thương certification" class="certification-image">
+        </div>
+      </div>
+  
+      <!-- Contact Info -->
+      <div class="footer-column contact-info">
+        <h3 class="footer-heading">THÔNG TIN</h3>
+        <p class="address">
+          Trụ sở văn phòng: 17 Trần Phú, Hà Đông, Hà Nội
+        <p class="phone">Điện thoại: 0365619789</p>
+        <p class="email">Email: duongdaidnd@gmai;.com</p>
+      </div>
+  
+      <!-- Customer Support -->
+      <div class="footer-column customer-support">
+        <h3 class="footer-heading">HỖ TRỢ KHÁCH HÀNG</h3>
+        <ul class="support-links">
+          <li><a href="#">• Tìm kiếm</a></li>
+          <li><a href="#">• Chính sách đổi trả</a></li>
+          <li><a href="#">• Chính sách bảo mật</a></li>
+          <li><a href="#">• Chính sách giao hàng</a></li>
+          <li><a href="#">• Liên hệ</a></li>
+        </ul>
+      </div>
+  
+      <!-- Customer Care -->
+      <div class="footer-column customer-care">
+        <h3 class="footer-heading">CHĂM SÓC KHÁCH HÀNG</h3>
+        <div class="phone-contact">
+          <div class="phone-icon-container">
+            <span class="phone-icon">📞</span>
+          </div>
+          <div class="contact-numbers">
+            <p class="bagged-coffee">Cà phê đóng gói: 091.756.1212</p>
+            <p class="cafe-service">Cà phê tại quán: 1900.1755</p>
+            <p class="email-contact">duongdaidnd.com</p>
+          </div>
+        </div>
+        
+        <div class="social-media">
+          <h4 class="social-heading">FOLLOW US</h4>
+          <div class="social-icons">
+            <a href="#" class="social-link"><span class="social-icon">facebook</span></a>
+            <a href="#" class="social-link"><span class="social-icon">twitter</span></a>
+            <a href="#" class="social-link"><span class="social-icon">youtube</span></a>
+            <a href="#" class="social-link"><span class="social-icon">instagram</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+    <script th:src="@{/js/muangay.js}"></script>
+</body>
+</html>

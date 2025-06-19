@@ -1,0 +1,441 @@
+/* Phiếu nhập kho specific styles */
+.main-content {
+    background-color: var(--bg-light);
+    min-height: 100vh;
+}
+
+/* Header & title styling */
+.header {
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    color: var(--dark);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+/* Stats cards customization */
+.stats-cards {
+    margin-bottom: 25px;
+}
+
+/* Badge status styling */
+.badge {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 20px;
+}
+
+.badge-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success);
+}
+
+.badge-warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning);
+}
+
+.badge-danger {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+}
+
+/* Table styles specific to nhapkho */
+.users-table-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.users-table th {
+    background-color: #f8fafc;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--dark);
+    border-bottom: 1px solid var(--border);
+}
+
+.users-table td {
+    padding: 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border);
+}
+
+.users-table tbody tr:hover {
+    background-color: #f8fafc;
+}
+
+.user-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.user-actions .btn {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.btn-info {
+    background-color: var(--info);
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #0284c7;
+}
+
+.btn-warning {
+    background-color: var(--warning);
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #d97706;
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626;
+}
+
+/* Modal styling for phiếu nhập kho */
+.modal-content {
+    max-width: 900px;
+    padding: 30px;
+}
+
+.modal-content h2 {
+    color: var(--dark);
+    margin-bottom: 25px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.form-section {
+    margin-bottom: 25px;
+}
+
+.form-section h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Detail table in modal */
+.detail-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+.detail-table th {
+    background-color: #f8fafc;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--dark);
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-table td {
+    padding: 12px 15px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-table select,
+.detail-table input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.detail-table tfoot {
+    font-weight: 600;
+}
+
+.detail-table tfoot td {
+    padding: 15px;
+}
+
+.text-right {
+    text-align: right;
+}
+
+/* View details styling */
+.view-details {
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.detail-row {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.detail-label {
+    width: 150px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.detail-value {
+    flex: 1;
+    color: var(--secondary);
+}
+
+/* Responsive for tables in mobile view */
+@media (max-width: 768px) {
+    .users-table thead {
+        display: none;
+    }
+
+    .users-table,
+    .users-table tbody,
+    .users-table tr,
+    .users-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .users-table tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .users-table td {
+        display: flex;
+        padding: 10px 15px;
+        text-align: right;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .users-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--dark);
+    }
+
+    .detail-table thead {
+        display: none;
+    }
+
+    .detail-table,
+    .detail-table tbody,
+    .detail-table tr,
+    .detail-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .detail-table tr {
+        margin-bottom: 15px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .detail-table td {
+        display: flex;
+        padding: 10px 15px;
+        text-align: right;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .detail-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--dark);
+    }
+
+    .detail-row {
+        flex-direction: column;
+    }
+
+    .detail-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+}
+
+/* Additional form group styling */
+.form-group select,
+.form-group input[type="date"] {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.3s;
+    background-color: white;
+}
+
+.form-group select:focus,
+.form-group input[type="date"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Empty state styling */
+#emptyState {
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px 20px;
+    box-shadow: var(--shadow);
+}
+
+/* Animation for alerts/notifications */
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    background-color: var(--success);
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: fadeOut 0.5s ease-in-out 2.5s forwards;
+}
+
+/* Custom styles for nguyen lieu rows */
+.nguyen-lieu-select {
+    min-width: 180px;
+}
+
+.so-luong,
+.don-gia {
+    min-width: 100px;
+}
+
+.don-vi {
+    min-width: 80px;
+    background-color: #f8fafc;
+}
+
+.thanh-tien {
+    font-weight: 600;
+    color: var(--primary);
+}
+
+/* Button styling for adding items */
+#addItemBtn {
+    margin-bottom: 15px;
+}
+
+/* Make delete button in rows more visible */
+.remove-row {
+    padding: 6px 10px !important;
+    font-size: 12px !important;
+}
+/* Pagination styling */
+.users-pagination-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.users-pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.users-page-item {
+    background-color: white;
+}
+
+.users-page-item.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.users-page-item.active .users-page-link {
+    background-color: var(--primary);
+    color: white;
+}
+
+.users-page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    color: var(--dark);
+    text-decoration: none;
+    transition: all 0.2s;
+    min-width: 40px;
+    border: 1px solid var(--border);
+}
+
+.users-page-link:hover {
+    background-color: #f8fafc;
+}
+
+.users-page-info {
+    background-color: #f8fafc;
+}
+
+.users-page-info .users-page-link {
+    cursor: default;
+}
+
+.users-page-info .users-page-link:hover {
+    background-color: #f8fafc;
+}
+
+/* Responsive styles */
+@media (max-width: 576px) {
+    .users-pagination {
+        flex-wrap: wrap;
+    }
+
+    .users-page-link {
+        padding: 8px 12px;
+        min-width: 36px;
+    }
+}

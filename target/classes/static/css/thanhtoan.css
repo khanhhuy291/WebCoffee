@@ -1,0 +1,291 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0cqi;
+}
+
+.logo {
+    width: 120px;
+    height: auto;
+}
+
+.checkout-section {
+    flex: 2;
+    padding: 20px;
+}
+
+.order-summary {
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-left: 1px solid #eee;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Định dạng chung cho các thẻ select */
+.form-select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hiệu ứng hover và focus */
+.form-select:hover, .form-select:focus {
+    border-color: #007bff;
+    background-color: #e9f7ff;
+}
+
+/* Style cho các option trong select */
+.form-select option {
+    padding: 10px;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Style cho khi chọn option */
+.form-select option:selected {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Định dạng cho các input thuộc dạng form-group */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Tùy chỉnh size cho select nhỏ */
+.form-select-sm {
+    font-size: 14px;
+    padding: 8px;
+}
+
+/* Tạo một viền bao quanh các phần tử select khi chưa được chọn */
+.form-select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+.phone-input {
+    display: flex;
+}
+
+.phone-input .country-code {
+    flex: 0 0 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    background-color: #f9f9f9;
+}
+
+.phone-input .country-code img {
+    width: 24px;
+    height: auto;
+}
+
+.phone-input .phone-number {
+    flex: 1;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+}
+
+.payment-methods {
+    margin-top: 20px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.payment-option.selected {
+    border-color: #b9383a;
+}
+
+.payment-option input {
+    margin-right: 10px;
+}
+
+.payment-option img {
+    height: 30px;
+    margin-left: auto;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.product-quantity {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-title {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.product-price {
+    font-weight: bold;
+    color: #b9383a;
+}
+
+.product-discount {
+    font-size: 12px;
+    color: #666;
+}
+
+.order-total {
+    margin-top: 20px;
+}
+
+.order-total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.order-total-row.final {
+    font-weight: bold;
+    font-size: 18px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+}
+
+.coupon-input {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.coupon-input input {
+    flex: 1;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+}
+
+.coupon-input button {
+    padding: 10px 20px;
+    background-color: #b9383a;
+    color: white;
+    border: none;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #b9383a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button.secondary {
+    background-color: transparent;
+    color: #b9383a;
+    border: 1px solid #b9383a;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.delivery-info {
+    background-color: #e6f7fb;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+

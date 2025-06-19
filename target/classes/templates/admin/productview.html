@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Thêm meta tags cho CSRF -->
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <link rel="stylesheet" th:href="@{/css/admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/users.css}" />
+    <link rel="stylesheet" th:href="@{/css/client.css}" />
+    <link rel="stylesheet" th:href="@{/css/productview.css}" />
+    <title>Quản Lý Menu</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h2>DND Coffee Admin</h2>
+    </div>
+    <div class="menu-items">
+        <a class="menu-item" th:href="@{/admin/}">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Bảng điều khiển</span>
+        </a>
+
+        <div class="menu-category">Quản lý danh mục</div>
+        <a class="menu-item" th:href="@{/admin/users}">
+            <i class="fas fa-users-cog"></i>
+            <span>Quản lý tài khoản</span>
+        </a>
+        <a class="menu-item"  th:href="@{/admin/employee}">
+            <i class="fas fa-user-tie"></i>
+            <span>Quản lý nhân viên</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/client}">
+            <i class="fas fa-user-friends"></i>
+            <span>Quản lý khách hàng</span>
+        </a>
+
+        <div class="menu-category">Quản lý kho và menu</div>
+        <a class="menu-item" th:href="@{/admin/quanlikho}">
+            <i class="fas fa-truck-loading"></i>
+            <span>Quản lý kho</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/nhapkho}">
+            <i class="fas fa-truck-loading"></i>
+            <span>Nhập kho</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/xuatkho}">
+            <i class="fas fa-dolly-flatbed"></i>
+            <span>Xuất kho</span>
+        </a>
+        <a class="menu-item active" th:href="@{/admin/products}">
+            <i class="fas fa-coffee"></i>
+            <span>Quản lý Menu</span>
+        </a>
+
+        <div class="menu-category">Quản lý lương</div>
+        <a class="menu-item" th:href="@{/admin/calamviec}">
+            <i class="fas fa-user-clock"></i>
+            <span>Quản lý ca</span>
+        </a>
+        <a class="menu-item"  th:href="@{/admin/lichlamviec}">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Lịch làm việc</span>
+        </a>
+
+        <div class="menu-category">Quản lý bán hàng</div>
+        <a class="menu-item"  th:href="@{/admin/donhang}">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Quản lý đơn hàng</span>
+        </a>
+        <a class="menu-item" th:href="@{/admin/reports}">
+            <i class="fas fa-chart-line"></i>
+            <span>Báo cáo thống kê</span>
+        </a>
+
+        <div class="menu-category">Hệ thống</div>
+        <a class="menu-item" th:href="@{/admin/settings}">
+            <i class="fas fa-cog"></i>
+            <span>Cài đặt</span>
+        </a>
+        <a class="menu-item" th:href="@{/logout}">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Đăng xuất</span>
+        </a>
+    </div>
+</div>
+
+<div class="main-content">
+    <!-- Notification message -->
+    <div class="notification success" id="notification" style="display: none;"></div>
+
+    <!-- Header section -->
+    <div class="header">
+        <h1>Quản Lý Menu</h1>
+        <button class="btn btn-primary" id="openAddProductModal"><i class="fas fa-plus"></i> Thêm Sản Phẩm</button>
+    </div>
+
+    <!-- Filter section -->
+    <div class="header-actions">
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchProduct" placeholder="Tìm kiếm sản phẩm...">
+            <div class="search-icon">🔍</div>
+        </div>
+
+        <button class="btn btn-outline" id="exportExcel">
+            <span>📤</span>
+            <span>Xuất Excel</span>
+        </button>
+
+        <div class="user-dropdown">
+            <div class="user-btn">
+                <div class="user-info">
+                    <div class="user-name">Nguyễn Admin</div>
+                    <div class="user-role">Quản trị viên</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category filter tabs -->
+    <div class="category-tabs" id="categoryTabs">
+        <div class="category-tab active" data-category="all">Tất cả</div>
+        <div class="category-tab" data-category="Cà Phê Phin">Cà Phê Phin</div>
+        <div class="category-tab" data-category="PhinDi">PhinDi</div>
+        <div class="category-tab" data-category="Trà">Trà</div>
+        <div class="category-tab" data-category="Freeze">Freeze</div>
+        <div class="category-tab" data-category="Bánh Mỳ Que">Bánh Mỳ Que</div>
+        <div class="category-tab" data-category="Bánh Ngọt">Bánh Ngọt</div>
+        <div class="category-tab" data-category="Sản phẩm cà phê">Sản phẩm cà phê</div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-cards">
+        <div class="stat-card">
+            <div class="stat-icon icon-blue"><i class="fas fa-coffee"></i></div>
+            <div class="stat-info">
+                <div class="stat-value" th:text="${products.totalElements}">120</div>
+                <div class="stat-label">Tổng số sản phẩm</div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon icon-green"><i class="fas fa-mug-hot"></i></div>
+            <div class="stat-info">
+                <div class="stat-value" th:text="${products.totalElements - DoAn}"></div>
+                <div class="stat-label">Đồ uống</div>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon icon-orange"><i class="fas fa-hamburger"></i></div>
+            <div class="stat-info">
+                <div class="stat-value" th:text="${DoAn}"></div>
+                <div class="stat-label">Đồ ăn</div>
+            </div>
+        </div>
+
+<!--        <div class="stat-card">-->
+<!--            <div class="stat-icon icon-red"><i class="fas fa-chart-line"></i></div>-->
+<!--            <div class="stat-info">-->
+<!--                <div class="stat-value">25%</div>-->
+<!--                <div class="stat-label">Tăng trưởng</div>-->
+<!--            </div>-->
+<!--        </div>-->
+    </div>
+
+    <!-- Product Table -->
+    <div class="users-table-container">
+        <table class="users-table product-table" id="productTable">
+            <thead>
+            <tr>
+                <th>Ảnh</th>
+                <th>Tên Sản Phẩm</th>
+                <th>Loại</th>
+                <th>Giá (S/M/L)</th>
+                <th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${products.content}" th:data-category="${product.loaiMon}">
+                <td data-label="Ảnh"><img th:src="@{${product.path}}" class="product-img" alt="Product Image"></td>
+                <td data-label="Tên Sản Phẩm" th:text="${product.tenMon}">Cà Phê Đen</td>
+                <td data-label="Loại" th:text="${product.loaiMon}">
+                    <span class="badge badge-info">Cà Phê Phin</span>
+                </td>
+                <td data-label="Giá" th:with="prices=${product.giaMonSizeResponses}">
+                    <span th:text="${#lists.size(prices) > 0 ? #numbers.formatDecimal(prices[0].giaBan, 0, 'COMMA', 0, 'POINT') + ' VNĐ' : 'N/A'}">29,000 VNĐ</span> /
+                    <span th:text="${#lists.size(prices) > 1 ? #numbers.formatDecimal(prices[1].giaBan, 0, 'COMMA', 0, 'POINT') + ' VNĐ' : 'N/A'}">39,000 VNĐ</span> /
+                    <span th:text="${#lists.size(prices) > 2 ? #numbers.formatDecimal(prices[2].giaBan, 0, 'COMMA', 0, 'POINT') + ' VNĐ' : 'N/A'}">49,000 VNĐ</span>
+                </td>
+                <td data-label="Thao tác" class="user-actions">
+                    <button class="btn btn-info view-btn" th:data-id="${product.idMon}">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="btn btn-warning edit-btn" th:data-id="${product.idMon}">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger delete-btn" th:data-id="${product.idMon}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Empty state for no products -->
+    <div id="emptyState" style="display: none; text-align: center; margin-top: 50px;">
+        <i class="fas fa-coffee" style="font-size: 48px; color: #ddd;"></i>
+        <h3 style="margin-top: 15px; color: #999;">Không tìm thấy sản phẩm</h3>
+        <p style="color: #999;">Hãy thêm sản phẩm mới hoặc thay đổi bộ lọc</p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="users-pagination-container">
+        <nav aria-label="Điều hướng trang">
+            <ul class="users-pagination" id="productPagination">
+                <!-- Nút đầu trang -->
+                <li class="users-page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                    <a class="users-page-link" th:href="@{/admin/products(pageNo=1)}" aria-label="Đầu trang">
+                        <i class="fas fa-angle-double-left"></i>
+                    </a>
+                </li>
+
+                <!-- Nút trang trước -->
+                <li class="users-page-item" th:classappend="${currentPage == 1 ? 'disabled' : ''}">
+                    <a class="users-page-link" th:href="@{/admin/products(pageNo=${currentPage - 1})}" aria-label="Trang trước">
+                        <i class="fas fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <!-- Thông tin trang hiện tại/tổng số trang -->
+                <li class="users-page-item users-page-info">
+                    <span class="users-page-link">
+                        Trang <span th:text="${currentPage}">1</span> / <span th:text="${totalPages}">5</span>
+                    </span>
+                </li>
+
+                <!-- Nút trang sau -->
+                <li class="users-page-item" th:classappend="${currentPage == totalPages ? 'disabled' : ''}">
+                    <a class="users-page-link" th:href="@{/admin/products(pageNo=${currentPage + 1})}" aria-label="Trang sau">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                </li>
+
+                <!-- Nút cuối trang -->
+                <li class="users-page-item" th:classappend="${currentPage == totalPages ? 'disabled' : ''}">
+                    <a class="users-page-link" th:href="@{/admin/products(pageNo=${totalPages})}" aria-label="Cuối trang">
+                        <i class="fas fa-angle-double-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- Add/Edit Product Modal -->
+<div id="productModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2 id="modalTitle">Thêm Sản Phẩm</h2>
+
+        <form id="productForm" action="/admin/products/add" method="POST" enctype="multipart/form-data">
+            <!-- Thêm CSRF token -->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" id="productId" name="idMon" value="">
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="productName">Tên Sản Phẩm *</label>
+                    <input type="text" id="productName" name="tenMon" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productCategory">Loại Sản Phẩm *</label>
+                    <select id="productCategory" name="loaiMon" required>
+                        <option value="">-- Chọn loại sản phẩm --</option>
+                        <option value="Cà Phê Phin">Cà Phê Phin</option>
+                        <option value="PhinDi">PhinDi</option>
+                        <option value="Trà">Trà</option>
+                        <option value="Freeze">Freeze</option>
+                        <option value="Bánh Mỳ Que">Bánh Mỳ Que</option>
+                        <option value="Bánh Ngọt">Bánh Ngọt</option>
+                        <option value="Sản phẩm cà phê">Sản phẩm cà phê</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="productDescription">Mô Tả</label>
+                <textarea id="productDescription" name="moTa" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="productImage">Hình Ảnh Sản Phẩm</label>
+                <input type="file" id="productImage" name="productImage" accept="image/*">
+                <div class="image-preview" id="imagePreview">
+                    <img id="previewImg" src="" alt="Preview" style="display: none;">
+                    <span id="previewText">Chưa chọn hình</span>
+                </div>
+            </div>
+
+            <div class="price-section">
+                <h3>Giá Theo Size</h3>
+
+                <div class="price-row">
+                    <div class="price-size">
+                        <label>Size S (1)</label>
+                    </div>
+                    <div class="price-value">
+                        <input type="number" name="giaMonSizeRequests[0].giaBan" id="priceS" placeholder="Giá size S" min="0">
+                        <input type="hidden" name="giaMonSizeRequests[0].idSize" value="1">
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <div class="price-size">
+                        <label>Size M (2)</label>
+                    </div>
+                    <div class="price-value">
+                        <input type="number" name="giaMonSizeRequests[1].giaBan" id="priceM" placeholder="Giá size M" min="0">
+                        <input type="hidden" name="giaMonSizeRequests[1].idSize" value="2">
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <div class="price-size">
+                        <label>Size L (3)</label>
+                    </div>
+                    <div class="price-value">
+                        <input type="number" name="giaMonSizeRequests[2].giaBan" id="priceL" placeholder="Giá size L" min="0">
+                        <input type="hidden" name="giaMonSizeRequests[2].idSize" value="3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn" id="cancelBtn">Huỷ</button>
+                <button type="submit" class="btn btn-primary">Lưu</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- View Product Modal -->
+<div id="viewProductModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" id="closeViewBtn">&times;</span>
+        <h2>Chi Tiết Sản Phẩm</h2>
+
+        <div class="view-details">
+            <div class="product-detail-header">
+                <img id="detailImage" src="" alt="Product Image" style="max-width: 200px; max-height: 200px; object-fit: contain;">
+                <div>
+                    <h3 id="detailName"></h3>
+                    <span class="badge badge-info" id="detailCategory"></span>
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Mô Tả:</div>
+                <div class="detail-value" id="detailDescription"></div>
+            </div>
+
+            <h3>Giá Theo Size</h3>
+            <table class="detail-table">
+                <thead>
+                <tr>
+                    <th>Size</th>
+                    <th>Giá</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>S</td>
+                    <td id="detailPriceS"></td>
+                </tr>
+                <tr>
+                    <td>M</td>
+                    <td id="detailPriceM"></td>
+                </tr>
+                <tr>
+                    <td>L</td>
+                    <td id="detailPriceL"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn" id="closeViewModalBtn">Đóng</button>
+            <button class="btn btn-warning" id="editFromViewBtn">Sửa</button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content" style="max-width: 400px;">
+        <h2>Xác nhận xoá</h2>
+        <p>Bạn có chắc chắn muốn xoá sản phẩm này?</p>
+        <div class="form-actions">
+            <button class="btn" id="cancelDeleteBtn">Huỷ</button>
+            <button class="btn btn-danger" id="confirmDeleteBtn">Xoá</button>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/productview.js}" ></script>
+</body>
+</html>
