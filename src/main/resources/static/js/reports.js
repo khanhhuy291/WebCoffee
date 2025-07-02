@@ -138,7 +138,7 @@ function updateSalesChart(labels, revenues, orders) {
             plugins: {
                 tooltip: {
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             let label = context.dataset.label || '';
                             if (label) {
                                 label += ': ';
@@ -257,7 +257,7 @@ function updateCategoryChart(data) {
                 },
                 tooltip: {
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             const label = context.label || '';
                             const value = formatCurrency(context.raw);
                             const percentage = formatPercent(data[context.dataIndex].percentage);
@@ -370,7 +370,7 @@ function updateComparisonChart(data, period) {
             plugins: {
                 tooltip: {
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             let label = context.dataset.label || '';
                             if (label) {
                                 label += ': ';
@@ -451,7 +451,7 @@ function updatePaymentMethodChart(data) {
                 },
                 tooltip: {
                     callbacks: {
-                        label: function(context) {
+                        label: function (context) {
                             const label = context.label || '';
                             const value = formatCurrency(context.raw);
                             const percentage = formatPercent(data[context.dataIndex].percentage);
@@ -562,7 +562,7 @@ async function exportSectionToExcel(sectionId, title) {
         let lastRow = 3;
 
         // Xử lý dữ liệu tùy theo loại báo cáo
-        switch(sectionId) {
+        switch (sectionId) {
             case 'salesChart':
                 // Lấy dữ liệu doanh thu theo thời gian
                 const salesData = await fetchData(`/admin/api/reports/sales?startDate=${startDate}&endDate=${endDate}&groupBy=daily`);
@@ -944,7 +944,7 @@ async function exportSectionToPdf(sectionId, title) {
             { text: `Thời gian: Từ ${startDate} đến ${endDate}`, style: 'subheader', alignment: 'center', margin: [0, 0, 0, 20] }
         );
 
-        switch(sectionId) {
+        switch (sectionId) {
             case 'salesChart':
                 // Lấy ảnh biểu đồ doanh thu
                 chartImg = getChartImageBase64('salesChart');
@@ -1261,7 +1261,7 @@ async function exportSectionToPdf(sectionId, title) {
 }
 
 // Thêm vào phần khởi tạo trang
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Các hàm khởi tạo hiện tại...
 
     // Thêm các nút xuất cho từng phần
@@ -1545,10 +1545,10 @@ async function configureComparisonSheet(sheet, comparisonData, startDate, endDat
     sheet.getCell(`C${row}`).numFmt = '#,##0 ₫';
 
     // Thêm dòng tăng trưởng
-    sheet.getCell(`A${row+1}`).value = 'Tăng trưởng';
-    sheet.getCell(`A${row+1}`).font = { bold: true };
-    sheet.getCell(`B${row+1}`).value = `${growthRate}%`;
-    sheet.getCell(`B${row+1}`).font = { bold: true };
+    sheet.getCell(`A${row + 1}`).value = 'Tăng trưởng';
+    sheet.getCell(`A${row + 1}`).font = { bold: true };
+    sheet.getCell(`B${row + 1}`).value = `${growthRate}%`;
+    sheet.getCell(`B${row + 1}`).font = { bold: true };
 
     // Định dạng header
     ['A4', 'B4', 'C4'].forEach(cell => {
@@ -2379,7 +2379,7 @@ function loadAllReportData() {
 }
 
 // Khởi tạo trang
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Khởi tạo giá trị mặc định cho các trường ngày
     const today = new Date();
     const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -2398,28 +2398,28 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('applyFilter').addEventListener('click', loadAllReportData);
 
     // Xử lý sự kiện thay đổi loại báo cáo
-    document.getElementById('reportType').addEventListener('change', function() {
+    document.getElementById('reportType').addEventListener('change', function () {
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
         loadSalesData(startDate, endDate, this.value);
     });
 
     // Xử lý sự kiện thay đổi loại biểu đồ doanh thu
-    document.getElementById('salesChartType').addEventListener('change', function() {
+    document.getElementById('salesChartType').addEventListener('change', function () {
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
         loadSalesData(startDate, endDate, document.getElementById('reportType').value);
     });
 
     // Xử lý sự kiện thay đổi số lượng sản phẩm bán chạy
-    document.getElementById('topProductsLimit').addEventListener('change', function() {
+    document.getElementById('topProductsLimit').addEventListener('change', function () {
         const startDate = document.getElementById('startDate').value;
         const endDate = document.getElementById('endDate').value;
         loadTopProducts(startDate, endDate, this.value);
     });
 
     // Xử lý sự kiện thay đổi kỳ so sánh
-    document.getElementById('comparisonPeriod').addEventListener('change', function() {
+    document.getElementById('comparisonPeriod').addEventListener('change', function () {
         loadComparisonData(this.value);
     });
 
@@ -2428,7 +2428,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('exportPdfBtn').addEventListener('click', exportPdfReport);
 
     // Xử lý sự kiện thay đổi thời gian tự động tải lại
-    document.getElementById('autoReloadTime').addEventListener('change', function() {
+    document.getElementById('autoReloadTime').addEventListener('change', function () {
         const seconds = parseInt(this.value);
         if (seconds > 0) {
             startAutoReload(seconds);
@@ -2445,7 +2445,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Đảm bảo dừng auto reload khi chuyển tab
     const tabButtons = document.querySelectorAll('.tab-btn');
     tabButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const tabId = this.getAttribute('data-tab');
             if (tabId === 'powerbi') {
                 // Dừng tự động tải lại khi chuyển sang tab Power BI
